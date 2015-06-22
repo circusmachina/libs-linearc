@@ -20,9 +20,6 @@ For information on how to use the parser in your own source, see the
 LinearC relies on a pair of other libraries that I've written:
 [classwork.pp][] and [parsing.pp][].
 
-The documentation seen here was generated with a modified version of [PasDoc][].
-The [classes hierarchy graph](GVClasses.svg) was generated using [GraphViz][].
-
 ## License ##
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
@@ -41,7 +38,7 @@ _(Not visible in the parsed HTML output because they've turned into the
 various links used in the text above.)_
 
 [Author]: http://www.circusmachina.com/gladius/Profiles/Michael
-[Home page]: http://docs.circusmachina.com/libslinearc/
+[Home page]: http://docs.circusmachina.com/libs/linearc/
 [Source]: https://github.com/circusmachina/libs-linearc
 [Source documentation]: http://docs.circusmachina.com/libs/linearc/
 [Bug tracker]: http://monkeywrench.circusmachina.com
