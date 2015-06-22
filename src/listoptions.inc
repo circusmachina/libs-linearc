@@ -1,7 +1,7 @@
 { listoptions.inc - Classes and definitions that represent dynamic
     command-line options which work with lists of values.
 
-  This file is part of commandline.pp, a libray for robust command-line parsing.
+  This file is part of linearc.pp, a libray for robust command-line parsing.
 
   This program is free software: you can redistribute it and/or modify it
   under the terms of the GNU General Public License as published by the

@@ -1,6 +1,6 @@
 **linearc.pp**: A command-line parser.
 Copyright (C) 2014-2015 by [Michael Malicoat][Author]  
-[Home page][] | [Source][] | [Source documentation][] (you're looking at it) |
+[Home page][] | [Source][] | [Source documentation][] |
 [Bug tracker][]
 
 This is a library that can be used with [Free Pascal][] sources to define and

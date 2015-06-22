@@ -1,7 +1,7 @@
 { linearcstatements.inc - A descendant of AConsoleApplication that builds and
     executes a command-line parser automatically.
 
-  This file is part of commandline.pp, a library for robust command-line
+  This file is part of linearc.pp, a library for robust command-line
   parsing.
 
   This program is free software: you can redistribute it and/or modify it under
