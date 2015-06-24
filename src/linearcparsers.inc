@@ -37,6 +37,29 @@ type ALinearCParser = class(AParsedLanguageParser)
     // Refers to the options that are parsed
     MyOptions: ACommandLineOptionDictionary;
 
+    { Initialize the parser prior to parsing the source.
+
+      This method builds on the behavior inherited from
+      @link(AParsedLanguageParser.readyToParse).  It calls the inherited routine
+      and, if that routine returns @true to indicate all is well, it checks to
+      see whether @link(AParser.Scanner Self.Scanner) is @nil, indicating that
+      a descendant class has not yet assigned a scanner to the parser.  If not,
+      the method constructs an instance of @link(ASourceScanner).
+
+      The method also checks to see whether
+      @link(ALinearCParser.Options Self.Options) is @nil, indicating that a
+      descendant class has not yet assigned a list of options to the parser.
+      If not, the method attempts to borrow the reference from its parent
+      parser, if one is available.
+
+      The method returns @true only if the inherited routine returns true and
+      if both @link(AParser.Scanner Self.Scanner) and
+      @link(ALinearCParser.Options Self.Options) are not @nil.
+
+      @return(@true if the parser is ready to parse; @false if not.)
+    }
+    function readyToParse: boolean; override;
+
   public
     { Construct a new instance of ALinearCParser that will parse the command
       line represented by @code(ThisSource) using the options specified by
@@ -49,6 +72,15 @@ type ALinearCParser = class(AParsedLanguageParser)
     constructor forSource(const ThisSource: AStream;
       const TheseOptions: ACommandLineOptionDictionary;
       const ThisLog: ALog); overload; virtual;
+
+    { Construct a new parser that will inherit the properties of its parent
+      parser.
+
+      The new parser will inherit the values of @code(ThisParent)'s
+      @link(AParser.Scanner Scanner), @link(AParser.Source Source),
+      @link(AParser.Log Log), and @link(ALinearCParser.Options Options).
+    }
+    constructor forSource(const ThisParent: AParser); override;
 
     // Initializer
     function init: boolean; override;
@@ -95,6 +127,21 @@ begin
   inherited forSource(ATextInputStream.around(ThisSource, false), ThisLog);
 
   MyOptions := TheseOptions;
+
+  { Establish the language specification used by the parser.  This
+    specification is freed automatically by AParsedLanguageParser.destroy.
+  }
+  MyLanguage := TheLinearCLanguage.new;
+end;
+
+// Constructor
+constructor ALinearCParser.forSource(const ThisParent: AParser);
+
+begin
+  inherited forSource(ThisParent);
+
+  if ThisParent is ALinearCParser then
+    MyOptions := ALinearCParser(ThisParent).Options
 end;
 
 // Initializer
@@ -106,12 +153,6 @@ begin
   if result then
   begin
     MyOptions := nil;
-
-    { Establish the language specification used by the parser.  This
-      specification is freed automatically by AParsedLanguageParser.destroy. }
-    MyLanguage := TheLinearCLanguage.new;
-
-    result := MyLanguage <> nil;
   end;
 end;
 
@@ -119,10 +160,37 @@ end;
 destructor ALinearCParser.destroy;
 
 begin
-  if MySource <> nil then
-    MySource.free;
+  // Free some items if we do not have a parent
+  if MyParent = nil then
+  begin
+    if MySource <> nil then
+      SysUtils.freeAndNil(MySource);
+  end;
 
   inherited destroy;
+end;
+
+// Determine whether or not the parser is ready to parse
+function ALinearCParser.readyToParse: boolean;
+
+begin
+  result := inherited readyToParse;
+
+  if result then
+  begin
+    if MyScanner = nil then
+      { Establish the scanner used by the parser }
+      MyScanner :=
+        ASourceScanner.forSource(ATextInputStream(MySource), MyLanguage);
+
+    // Ensure we have a valid list of options
+    if (MyOptions = nil) and (MyParent <> nil) then
+      if MyParent is ALinearCParser then
+        MyOptions := ALinearCParser(MyParent).Options;
+
+    // To succeed, we need a scanner and a valid list of options
+    result := (MyScanner <> nil) and (MyOptions <> nil);
+  end;
 end;
 
 // Parse the command line
@@ -133,21 +201,12 @@ var
   CommandLine: ALinearCStatementBlock;
 
 begin
-  result := inherited parse;
-  if result <> 0 then
-    exit;
-
-  // Ensure we have a valid (non-nil) list of options
   result := -1;
-  if MyOptions = nil then
+
+  if not(Self.readyToParse) then
     exit;
 
-  { Establish the scanner used by the parser }
-  MyScanner := ASourceScanner.forSource(ATextInputStream(MySource), MyLanguage);
-  if MyScanner = nil then
-    exit;
-
-  { Whitespace is important to this scanner }
+  { Whitespace is not important to this scanner }
   MyScanner.setTokenBehaviors([SCAN_CONSOLIDATE_WHITESPACE]);
 
   // Parse the entire command line

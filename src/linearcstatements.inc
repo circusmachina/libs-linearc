@@ -24,34 +24,7 @@
   not implement @link(AParser.parse AStatement.parse); instead one of its
   descendants will be constructed.
 }
-type ALinearCStatement = class(AParsedLanguageParser)
-  protected
-    // Stores the list of command line options with which the statement works
-    MyOptions: ACommandLineOptionDictionary;
-
-  public
-
-    { Construct a new parser that will inherit the properties of its parent
-      parser.
-
-      The new parser will inherit the values of @code(ThisParent)'s
-      @link(AParser.Scanner Scanner), @link(AParser.Source Source),
-      @link(AParser.Log Log), and @link(ALinearCParser.Options Options).
-    }
-    constructor forSource(const ThisParent: AParser); override;
-
-    // Initializer
-    function init: boolean; override;
-
-    // Properties --------------------------------------------------------------
-    { Retrieve a reference to the list of command line options with which the
-      statement works.
-
-      The caller should NOT attempt to free the reference returned by this
-      routine.
-    }
-    function Options: ACommandLineOptionDictionary; virtual;
-end;
+type ALinearCStatement = class(ALinearCParser);
 
 // ALinearCAssignmentStatement *************************************************
 { This class represents an assignment statement in LinearC; that is, the portion
@@ -144,43 +117,9 @@ end;
 
     The string placedholder is replaced by the name of the unknown option.
   }
-  lcstWarningUnknownOption = 'ignoring unknown option %s' + lineEnding;
+  lcstWarningUnknownOption = 'ignoring unknown option %s';
 {$ENDIF}
 {$IFDEF ReadImplementation}
-// ALinearCStatement ***********************************************************
-// Constructor
-constructor ALinearCStatement.forSource(const ThisParent: AParser);
-
-begin
-  inherited forSource(ThisParent);
-
-  if ThisParent is ALinearCParser then
-    MyOptions := ALinearCParser(ThisParent).Options
-
-  else if ThisParent is ALinearCStatement then
-    MyOptions := ALinearCStatement(ThisParent).Options;
-end;
-
-// Initializer
-function ALinearCStatement.init: boolean;
-
-begin
-  result := inherited init;
-
-  if result then
-  begin
-    MyOptions := nil;
-  end;
-end;
-
-// Properties ------------------------------------------------------------------
-// Retrieve a reference to the list of command line options
-function ALinearCStatement.Options: ACommandLineOptionDictionary;
-
-begin
-  Result := MyOptions;
-end;
-
 // ALinearCAssignmentStatement *************************************************
 // Handle special cases
 function ALinearCAssignmentStatement.parseSpecialCase: int64;
@@ -241,6 +180,11 @@ var
   ThisOption: ACommandLineOption;
 
 begin
+  result := -1;
+
+  if not(Self.readyToParse) then
+    exit;
+
   result := 0;
 
   // The next token should contain the name of the option to set...
@@ -329,6 +273,9 @@ var
 begin
   result := -1;
 
+  if not(Self.readyToParse) then
+    exit;
+
   // Ensure we have a valid token list
   CurrentToken;
 
@@ -380,7 +327,13 @@ var
   Statement: ALinearCStatement;
 
 begin
+  result := -1;
+
+  if not(Self.readyToParse) then
+    exit;
+
   result := 0;
+
   Statement := nil;
 
   // Check the current token
@@ -389,7 +342,11 @@ begin
       Statement := ALinearCAssignmentStatement.forSource(Self);
 
     TOKCAT_IDENTIFIER:
-      Statement := ALinearCRestArgument.forSource(Self)
+      Statement := ALinearCRestArgument.forSource(Self);
+
+    TOKCAT_SPACE:
+      // Ignore white space at the beginning of the block
+      Statement := nil;
 
   else
     if ATokenFromSource(CurrentToken).isPartOfAny([RULE_DELIMIT_STRING,

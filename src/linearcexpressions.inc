@@ -21,9 +21,10 @@
 // ALinearCExpression **********************************************************
 { This class represents an expression in LinearC.  An expression can be made
   up of a numeric value, a boolean value, or a subexpression (delimited by
-  parentheses).
+  parentheses).  You will probaly not create a direct instance of this class,
+  since it cannot implement any parsing routines on its own.
 }
-type ALinearCExpression = class(AParsedLanguageParser)
+type ALinearCExpression = class(ALinearCStatement)
   protected
     // Stores the value of the expression
     myValue: Variant;
@@ -39,11 +40,14 @@ type ALinearCExpression = class(AParsedLanguageParser)
     // Initializer
     function init: boolean; override;
 
-    { Destroy the expression parser.
+    { Destroy the expression.
 
-      This method @code(nil)s its reference to the parent's token list to
-      prevent the inherited routine from freeing it (since the reference is
-      borrowed).  It then calls the inherited routine.
+      Since instances of @link(ALinearCExpression) borrow the
+      @link(AParser.Tokens tokens list reference) of their
+      @link(ANode.Parent parent), this method sets its copy of that reference
+      to @nil in order to prevent the inherited destructor code from freeing
+      a reference that does not belong to it.  It then calls the inherited
+      destructor.
     }
     destructor destroy; override;
 
@@ -84,14 +88,6 @@ type ALinearCExpression = class(AParsedLanguageParser)
       be changed.
     }
     function value: Variant; virtual;
-
-    { Retrieve a reference to the list of command line options with which the
-      expression works.
-
-      The caller should NOT attempt to free the reference returned by this
-      routine.
-    }
-    function Options: ACommandLineOptionDictionary; virtual;
 end;
 
 // ALinearCBooleanExpression ***************************************************
@@ -482,7 +478,7 @@ end;
 destructor ALinearCExpression.destroy;
 
 begin
-  { Nil this so that the inherited routine doesn't try to free it }
+  // Prevent attempts to free a token list reference that is not ours
   MyTokens := nil;
 
   inherited destroy;
@@ -498,7 +494,11 @@ var
   unaryOperator: TOpcode;
 
 begin
-  result := 0;
+  result := -1;
+
+  if not(Self.readyToParse) then
+    exit;
+
   Expression := nil;
   unaryOperator := 0;
 
@@ -563,10 +563,10 @@ begin
   if Expression <> nil then
   begin
     if Expression is ALinearCCompoundExpression then
-      ALinearCCompoundExpression(Expression).parseUntil(RULE_END_EXPRESSION)
+      result := ALinearCCompoundExpression(Expression).parseUntil(RULE_END_EXPRESSION)
 
     else
-      Expression.parse;
+      result := Expression.parse;
 
     myValue := Expression.value;
     Expression.free;
@@ -607,23 +607,6 @@ begin
   result := myValue;
 end;
 
-// Retrieve a reference to the list of command line options
-function ALinearCExpression.Options: ACommandLineOptionDictionary;
-
-begin
-  Result := nil;
-
-  if MyParent is ALinearCParser then
-    Result := ALinearCParser(MyParent).Options
-
-  else if MyParent is ALinearCStatement then
-    Result := ALinearCStatement(MyParent).Options
-
-  else if MyParent is ALinearCExpression then
-    Result := ALinearCExpression(MyParent).Options;
-end;
-
-
 // ALinearCBooleanExpression ***************************************************
 // Initializer
 function ALinearCBooleanExpression.init: boolean;
@@ -642,6 +625,9 @@ function ALinearCBooleanExpression.parse: int64;
 
 begin
   result := -1;
+
+  if not(Self.readyToParse) then
+    exit;
 
   if CurrentToken = nil then
     exit;
@@ -675,6 +661,11 @@ end;
 function ALinearCIdentifierExpression.parse: int64;
 
 begin
+  result := -1;
+
+  if not(Self.readyToParse) then
+    exit;
+
   result := 0;
 
   // Look up the value
@@ -710,7 +701,10 @@ var
   scannerBehavior: TScannerTokenBehaviors;
 
 begin
-  result := 0;
+  result := -1;
+
+  if not(Self.readyToParse) then
+    exit;
 
   { Whitespace is important }
   scannerBehavior := MyScanner.tokenBehaviors;
@@ -747,7 +741,7 @@ begin
   // Restore scanner behavior
   MyScanner.setTokenBehaviors(scannerBehavior);
 
-  // Skip past the ending token
+  // Skip past the ending delimiter
   NextToken;
 
   result := Self.Log.Counter(lgerCounterName).value;
@@ -834,7 +828,10 @@ var
   scannerBehavior: TScannerTokenBehaviors;
 
 begin
-  result := 0;
+  result := -1;
+
+  if not(Self.readyToParse) then
+    exit;
 
   { Whitespace is important }
   scannerBehavior := MyScanner.tokenBehaviors;
@@ -879,7 +876,10 @@ end;
 function ALinearCNumericExpression.parse: int64;
 
 begin
-  result := 0;
+  result := -1;
+
+  if not(Self.readyToParse) then
+    exit;
 
   // Check that the current token is a valid number
   if (CurrentToken is ANumericConstantToken) and
@@ -906,7 +906,11 @@ var
   MyCurrentExpression: ALinearCExpression;
 
 begin
-  result := 0;
+  result := -1;
+
+  if not(Self.readyToParse) then
+    exit;
+
   MyPreviousExpression := ALinearCExpression(Self.PreviousElement);
 
   { When we get here, the current token should be either an operator or an

@@ -92,8 +92,8 @@ begin
 
     exitCode := MyApplication.run;
 
-    if exitCode = 0 then
-    begin
+    //if exitCode = 0 then
+    //begin
       writeln(MyApplication.Options.toString);
       ThisOption := AStringLeaf(MyApplication.Options.Root);
 
@@ -110,7 +110,7 @@ begin
 
         ThisOption := AStringLeaf(ThisOption.Next);
       end;
-    end;
+    //end;
 
   except
     on AE: AnException do

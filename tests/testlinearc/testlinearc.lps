@@ -3,618 +3,777 @@
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="84">
+    <Units Count="96">
       <Unit0>
         <Filename Value="testlinearc.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="testlinearc"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="82"/>
-        <CursorPos X="11" Y="112"/>
-        <UsageCount Value="81"/>
+        <CursorPos X="47" Y="94"/>
+        <UsageCount Value="89"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
-        <Filename Value="../../../libs/classwork/src/classwork.pp"/>
-        <UnitName Value="classwork"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="37"/>
-        <CursorPos X="15" Y="120"/>
-        <UsageCount Value="24"/>
-      </Unit1>
-      <Unit2>
-        <Filename Value="../../../libs/parse/src/parsing.pp"/>
-        <UnitName Value="parsing"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="59" Y="14"/>
-        <UsageCount Value="24"/>
-      </Unit2>
-      <Unit3>
-        <Filename Value="../../../libs/linearc/src/linearc.pp"/>
-        <UnitName Value="linearc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="9"/>
-        <CursorPos X="26" Y="9"/>
-        <UsageCount Value="24"/>
-      </Unit3>
-      <Unit4>
-        <Filename Value="../../src/base/classwork.pp"/>
-        <UnitName Value="classwork"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="52"/>
-        <CursorPos X="15" Y="83"/>
-        <UsageCount Value="77"/>
-      </Unit4>
-      <Unit5>
-        <Filename Value="../../src/parse/parsing.pp"/>
-        <UnitName Value="parsing"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="31"/>
-        <CursorPos X="2" Y="40"/>
-        <UsageCount Value="77"/>
-      </Unit5>
-      <Unit6>
-        <Filename Value="../../src/commandline/linearc.pp"/>
-        <UnitName Value="linearc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="51" Y="31"/>
-        <UsageCount Value="77"/>
-      </Unit6>
-      <Unit7>
-        <Filename Value="../../src/base/mappings.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="151"/>
-        <CursorPos X="44" Y="177"/>
-        <UsageCount Value="58"/>
-      </Unit7>
-      <Unit8>
-        <Filename Value="../../src/commandline/linearcapplications.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="306"/>
-        <CursorPos X="47" Y="327"/>
-        <UsageCount Value="39"/>
-      </Unit8>
-      <Unit9>
-        <Filename Value="../../../libs/linearc/src/linearcapplications.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="38"/>
-        <CursorPos X="88" Y="54"/>
-        <UsageCount Value="10"/>
-      </Unit9>
-      <Unit10>
-        <Filename Value="../../../libs/classwork/src/consoleapplications.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="164"/>
-        <CursorPos X="38" Y="171"/>
-        <UsageCount Value="10"/>
-      </Unit10>
-      <Unit11>
-        <Filename Value="../../../libs/classwork/src/applications.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="284"/>
-        <CursorPos X="1" Y="305"/>
-        <UsageCount Value="3"/>
-      </Unit11>
-      <Unit12>
-        <Filename Value="../../src/commandline/linearc.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="371"/>
-        <CursorPos X="24" Y="25"/>
-        <UsageCount Value="37"/>
-      </Unit12>
-      <Unit13>
-        <Filename Value="../../src/commandline/linearcparsers.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="122"/>
-        <CursorPos X="49" Y="132"/>
-        <UsageCount Value="39"/>
-      </Unit13>
-      <Unit14>
-        <Filename Value="../../src/parse/parsers.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="119"/>
-        <CursorPos X="87" Y="140"/>
-        <UsageCount Value="29"/>
-      </Unit14>
-      <Unit15>
-        <Filename Value="../../src/parse/languages.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="41"/>
-        <CursorPos X="15" Y="65"/>
-        <UsageCount Value="24"/>
-      </Unit15>
-      <Unit16>
-        <Filename Value="../../src/base/classwork.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="145"/>
-        <CursorPos X="30" Y="18"/>
-        <UsageCount Value="3"/>
-      </Unit16>
-      <Unit17>
-        <Filename Value="../../../libs/linearc/src/linearc.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="242"/>
-        <CursorPos X="35" Y="250"/>
-        <UsageCount Value="13"/>
-      </Unit17>
-      <Unit18>
-        <Filename Value="../../src/parse/syntax.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="215"/>
-        <CursorPos X="71" Y="236"/>
-        <UsageCount Value="14"/>
-      </Unit18>
-      <Unit19>
-        <Filename Value="../../src/parse/parsedlanguageparsers.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="212"/>
-        <CursorPos X="42" Y="251"/>
-        <UsageCount Value="29"/>
-      </Unit19>
-      <Unit20>
-        <Filename Value="../../src/base/nodes.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="941"/>
-        <CursorPos X="8" Y="972"/>
-        <UsageCount Value="9"/>
-      </Unit20>
-      <Unit21>
-        <Filename Value="../../../libs/classwork/src/nodes.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="498"/>
-        <CursorPos X="36" Y="515"/>
-        <UsageCount Value="3"/>
-      </Unit21>
-      <Unit22>
-        <Filename Value="../../src/parse/opcodes.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="259"/>
-        <CursorPos X="25" Y="317"/>
-        <UsageCount Value="4"/>
-      </Unit22>
-      <Unit23>
-        <Filename Value="../../src/commandline/linearcstatements.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="57"/>
-        <CursorPos X="47" Y="81"/>
-        <UsageCount Value="39"/>
-      </Unit23>
-      <Unit24>
-        <Filename Value="../../src/parse/tokens.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="79"/>
-        <CursorPos X="68" Y="89"/>
-        <UsageCount Value="10"/>
-      </Unit24>
-      <Unit25>
-        <Filename Value="../../src/parse/sourceexpressions.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="3"/>
-      </Unit25>
-      <Unit26>
-        <Filename Value="../../src/parse/expressions.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="7"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="3"/>
-      </Unit26>
-      <Unit27>
-        <Filename Value="../../src/parse/statements.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="129"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="3"/>
-      </Unit27>
-      <Unit28>
-        <Filename Value="../../src/parse/sourceparsers.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="117"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="3"/>
-      </Unit28>
-      <Unit29>
-        <Filename Value="../../src/parse/sourcescanners.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="105"/>
-        <CursorPos X="42" Y="144"/>
-        <UsageCount Value="20"/>
-      </Unit29>
-      <Unit30>
-        <Filename Value="../../src/parse/sourcetokens.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="658"/>
-        <CursorPos X="64" Y="680"/>
-        <UsageCount Value="17"/>
-      </Unit30>
-      <Unit31>
-        <Filename Value="../../src/parse/scanners.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="71"/>
-        <CursorPos X="24" Y="71"/>
-        <UsageCount Value="15"/>
-      </Unit31>
-      <Unit32>
-        <Filename Value="../../src/base/stringstreams.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="402"/>
-        <CursorPos X="37" Y="423"/>
-        <UsageCount Value="7"/>
-      </Unit32>
-      <Unit33>
-        <Filename Value="../../src/base/streamwrappers.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="231"/>
-        <CursorPos X="50" Y="286"/>
-        <UsageCount Value="6"/>
-      </Unit33>
-      <Unit34>
-        <Filename Value="../../src/base/textstreams.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="333"/>
-        <CursorPos X="47" Y="347"/>
-        <UsageCount Value="10"/>
-      </Unit34>
-      <Unit35>
-        <Filename Value="../../src/base/binarytrees.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="83"/>
-        <CursorPos X="19" Y="100"/>
-        <UsageCount Value="10"/>
-      </Unit35>
-      <Unit36>
-        <Filename Value="../../src/commandline/optiondictionaries.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="158"/>
-        <CursorPos X="60" Y="180"/>
-        <UsageCount Value="36"/>
-      </Unit36>
-      <Unit37>
-        <Filename Value="../../src/parse/tokenlists.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="71"/>
-        <CursorPos X="48" Y="78"/>
-        <UsageCount Value="7"/>
-      </Unit37>
-      <Unit38>
-        <Filename Value="../../src/commandline/options.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="307"/>
-        <CursorPos X="69" Y="316"/>
-        <UsageCount Value="35"/>
-      </Unit38>
-      <Unit39>
-        <Filename Value="../../src/base/stringlists.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="118"/>
-        <CursorPos X="64" Y="142"/>
-        <UsageCount Value="10"/>
-      </Unit39>
-      <Unit40>
-        <Filename Value="../../src/base/linkedlists.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="296"/>
-        <CursorPos X="67" Y="319"/>
-        <UsageCount Value="9"/>
-      </Unit40>
-      <Unit41>
-        <Filename Value="../../src/base/dictionaries.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="208"/>
-        <CursorPos X="49" Y="126"/>
-        <UsageCount Value="8"/>
-      </Unit41>
-      <Unit42>
-        <Filename Value="../../src/base/stringtrees.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="115"/>
-        <CursorPos X="50" Y="133"/>
-        <UsageCount Value="6"/>
-      </Unit42>
-      <Unit43>
-        <Filename Value="../../src/parse/symbols.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="174"/>
-        <CursorPos X="33" Y="189"/>
-        <UsageCount Value="6"/>
-      </Unit43>
-      <Unit44>
-        <Filename Value="../../src/parse/parsermessages.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="517"/>
-        <CursorPos X="36" Y="546"/>
-        <UsageCount Value="10"/>
-      </Unit44>
-      <Unit45>
-        <Filename Value="../../src/base/strings.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="419"/>
-        <CursorPos X="56" Y="447"/>
-        <UsageCount Value="8"/>
-      </Unit45>
-      <Unit46>
-        <Filename Value="/usr/local/share/lazarus/components/lazutils/lazutf8.pas"/>
-        <UnitName Value="LazUTF8"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="28"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
-      </Unit46>
-      <Unit47>
-        <Filename Value="../../src/commandline/linearcexpressions.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="668"/>
-        <CursorPos X="43" Y="696"/>
-        <UsageCount Value="32"/>
-      </Unit47>
-      <Unit48>
-        <Filename Value="../../src/base/consolestreams.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="211"/>
-        <CursorPos X="40" Y="235"/>
-        <UsageCount Value="5"/>
-      </Unit48>
-      <Unit49>
-        <Filename Value="../../src/base/printingobjects.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="76"/>
-        <CursorPos X="13" Y="66"/>
-        <UsageCount Value="6"/>
-      </Unit49>
-      <Unit50>
-        <Filename Value="../../src/base/variantlists.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="115"/>
-        <CursorPos X="27" Y="139"/>
-        <UsageCount Value="9"/>
-      </Unit50>
-      <Unit51>
-        <Filename Value="../../src/base/applications.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="315"/>
-        <CursorPos X="48" Y="332"/>
-        <UsageCount Value="10"/>
-      </Unit51>
-      <Unit52>
-        <Filename Value="../../src/commandline/numericoptions.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="244"/>
-        <CursorPos X="29" Y="46"/>
-        <UsageCount Value="13"/>
-      </Unit52>
-      <Unit53>
-        <Filename Value="../../src/base/logging.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="285"/>
-        <CursorPos X="37" Y="301"/>
-        <UsageCount Value="10"/>
-      </Unit53>
-      <Unit54>
-        <Filename Value="../../src/commandline/listoptions.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="114"/>
-        <CursorPos X="55" Y="136"/>
-        <UsageCount Value="10"/>
-      </Unit54>
-      <Unit55>
-        <Filename Value="../../src/commandline/booleanoptions.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="13"/>
-        <CursorPos X="41" Y="31"/>
-        <UsageCount Value="9"/>
-      </Unit55>
-      <Unit56>
-        <Filename Value="../../src/base/loggeditems.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="361"/>
-        <CursorPos X="42" Y="381"/>
-        <UsageCount Value="11"/>
-      </Unit56>
-      <Unit57>
-        <Filename Value="../../src/base/streambookmarks.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="315"/>
-        <CursorPos X="50" Y="334"/>
-        <UsageCount Value="9"/>
-      </Unit57>
-      <Unit58>
-        <Filename Value="../../src/base/bookmarkedstreams.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="199"/>
-        <CursorPos X="82" Y="225"/>
-        <UsageCount Value="9"/>
-      </Unit58>
-      <Unit59>
-        <Filename Value="../../src/base/versioninfo.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="269"/>
-        <CursorPos X="42" Y="286"/>
-        <UsageCount Value="9"/>
-      </Unit59>
-      <Unit60>
-        <Filename Value="../../../libs/classwork/src/logging.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="54"/>
-        <CursorPos X="54" Y="68"/>
-        <UsageCount Value="10"/>
-      </Unit60>
-      <Unit61>
-        <Filename Value="../../src/base/consoleapplications.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="159"/>
-        <CursorPos X="6" Y="29"/>
-        <UsageCount Value="10"/>
-      </Unit61>
-      <Unit62>
-        <Filename Value="../../../libs/linearc/src/linearcexpressions.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1068"/>
-        <CursorPos X="66" Y="1075"/>
-        <UsageCount Value="13"/>
-      </Unit62>
-      <Unit63>
-        <Filename Value="../../../libs/linearc/src/linearcstatements.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="256"/>
-        <CursorPos X="41" Y="250"/>
-        <UsageCount Value="12"/>
-      </Unit63>
-      <Unit64>
-        <Filename Value="../../../libs/parse/src/parsers.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="648"/>
-        <CursorPos X="24" Y="658"/>
-        <UsageCount Value="10"/>
-      </Unit64>
-      <Unit65>
-        <Filename Value="../../../libs/parse/src/sourcetokens.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="721"/>
-        <CursorPos X="1" Y="739"/>
-        <UsageCount Value="10"/>
-      </Unit65>
-      <Unit66>
-        <Filename Value="../../../libs/parse/src/symbolcollections.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="188"/>
-        <CursorPos X="1" Y="206"/>
-        <UsageCount Value="10"/>
-      </Unit66>
-      <Unit67>
-        <Filename Value="../../../libs/classwork/src/binarytrees.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1264"/>
-        <CursorPos X="12" Y="1267"/>
-        <UsageCount Value="10"/>
-      </Unit67>
-      <Unit68>
-        <Filename Value="../../../libs/classwork/src/strings.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="107"/>
-        <CursorPos X="58" Y="119"/>
-        <UsageCount Value="10"/>
-      </Unit68>
-      <Unit69>
-        <Filename Value="../../../libs/linearc/src/options.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="645"/>
-        <CursorPos X="42" Y="653"/>
-        <UsageCount Value="11"/>
-      </Unit69>
-      <Unit70>
-        <Filename Value="../../../libs/linearc/src/optiondictionaries.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="423"/>
-        <CursorPos X="41" Y="434"/>
-        <UsageCount Value="12"/>
-      </Unit70>
-      <Unit71>
-        <Filename Value="../../../libs/linearc/src/linearctokenstrings.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="84" Y="28"/>
-        <UsageCount Value="12"/>
-      </Unit71>
-      <Unit72>
-        <Filename Value="../../../libs/classwork/src/classwork.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="25"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
-      </Unit72>
-      <Unit73>
-        <Filename Value="../../../libs/parse/src/tokenlists.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="82"/>
-        <CursorPos X="1" Y="114"/>
-        <UsageCount Value="10"/>
-      </Unit73>
-      <Unit74>
-        <Filename Value="../../../libs/classwork/src/linkedlists.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="748"/>
-        <CursorPos X="1" Y="781"/>
-        <UsageCount Value="10"/>
-      </Unit74>
-      <Unit75>
-        <Filename Value="../../../libs/classwork/src/mappings.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="61"/>
-        <CursorPos X="67" Y="76"/>
-        <UsageCount Value="10"/>
-      </Unit75>
-      <Unit76>
-        <Filename Value="../../../libs/classwork/src/refcntobjects.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="13"/>
-        <CursorPos X="47" Y="28"/>
-        <UsageCount Value="10"/>
-      </Unit76>
-      <Unit77>
-        <Filename Value="../../../libs/classwork/src/singletons.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="81"/>
-        <CursorPos X="12" Y="93"/>
-        <UsageCount Value="10"/>
-      </Unit77>
-      <Unit78>
-        <Filename Value="../../../libs/classwork/src/dictionaries.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="148"/>
-        <CursorPos X="60" Y="171"/>
-        <UsageCount Value="10"/>
-      </Unit78>
-      <Unit79>
-        <Filename Value="../../../libs/classwork/src/objectmappings.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="108"/>
-        <CursorPos X="91" Y="121"/>
-        <UsageCount Value="10"/>
-      </Unit79>
-      <Unit80>
-        <Filename Value="../../../libs/classwork/src/miniparsers.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="32"/>
-        <CursorPos X="93" Y="46"/>
-        <UsageCount Value="10"/>
-      </Unit80>
-      <Unit81>
         <Filename Value="../../../classwork/src/classwork.pp"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="classwork"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="27" Y="13"/>
-        <UsageCount Value="20"/>
-      </Unit81>
-      <Unit82>
+        <UsageCount Value="28"/>
+      </Unit1>
+      <Unit2>
         <Filename Value="../../../parse/src/parsing.pp"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="parsing"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="33" Y="14"/>
-        <UsageCount Value="20"/>
-      </Unit82>
-      <Unit83>
+        <TopLine Value="23"/>
+        <CursorPos X="30" Y="39"/>
+        <UsageCount Value="28"/>
+      </Unit2>
+      <Unit3>
         <Filename Value="../../src/linearc.pp"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="linearc"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="22"/>
+        <CursorPos X="1" Y="38"/>
+        <UsageCount Value="28"/>
+        <Loaded Value="True"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="../../../libs/classwork/src/classwork.pp"/>
+        <UnitName Value="classwork"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="37"/>
+        <CursorPos X="15" Y="120"/>
+        <UsageCount Value="23"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="../../../libs/parse/src/parsing.pp"/>
+        <UnitName Value="parsing"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="29" Y="13"/>
-        <UsageCount Value="20"/>
+        <CursorPos X="59" Y="14"/>
+        <UsageCount Value="23"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="../../../libs/linearc/src/linearc.pp"/>
+        <UnitName Value="linearc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="9"/>
+        <CursorPos X="26" Y="9"/>
+        <UsageCount Value="23"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="../../src/base/classwork.pp"/>
+        <UnitName Value="classwork"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="52"/>
+        <CursorPos X="15" Y="83"/>
+        <UsageCount Value="76"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="../../src/parse/parsing.pp"/>
+        <UnitName Value="parsing"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="31"/>
+        <CursorPos X="2" Y="40"/>
+        <UsageCount Value="76"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="../../src/commandline/linearc.pp"/>
+        <UnitName Value="linearc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="51" Y="31"/>
+        <UsageCount Value="76"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="../../src/base/mappings.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="151"/>
+        <CursorPos X="44" Y="177"/>
+        <UsageCount Value="57"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="../../src/commandline/linearcapplications.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="306"/>
+        <CursorPos X="47" Y="327"/>
+        <UsageCount Value="38"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="../../../libs/linearc/src/linearcapplications.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="38"/>
+        <CursorPos X="88" Y="54"/>
+        <UsageCount Value="9"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="../../../libs/classwork/src/consoleapplications.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="164"/>
+        <CursorPos X="38" Y="171"/>
+        <UsageCount Value="9"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="../../../libs/classwork/src/applications.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="284"/>
+        <CursorPos X="1" Y="305"/>
+        <UsageCount Value="2"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="../../src/commandline/linearc.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="371"/>
+        <CursorPos X="24" Y="25"/>
+        <UsageCount Value="36"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="../../src/commandline/linearcparsers.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="122"/>
+        <CursorPos X="49" Y="132"/>
+        <UsageCount Value="38"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="../../src/parse/parsers.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="119"/>
+        <CursorPos X="87" Y="140"/>
+        <UsageCount Value="28"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="../../src/parse/languages.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="41"/>
+        <CursorPos X="15" Y="65"/>
+        <UsageCount Value="23"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="../../src/base/classwork.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="145"/>
+        <CursorPos X="30" Y="18"/>
+        <UsageCount Value="2"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="../../../libs/linearc/src/linearc.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="242"/>
+        <CursorPos X="35" Y="250"/>
+        <UsageCount Value="12"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="../../src/parse/syntax.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="215"/>
+        <CursorPos X="71" Y="236"/>
+        <UsageCount Value="13"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="../../src/parse/parsedlanguageparsers.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="212"/>
+        <CursorPos X="42" Y="251"/>
+        <UsageCount Value="28"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="../../src/base/nodes.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="941"/>
+        <CursorPos X="8" Y="972"/>
+        <UsageCount Value="8"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="../../../libs/classwork/src/nodes.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="498"/>
+        <CursorPos X="36" Y="515"/>
+        <UsageCount Value="2"/>
+      </Unit24>
+      <Unit25>
+        <Filename Value="../../src/parse/opcodes.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="259"/>
+        <CursorPos X="25" Y="317"/>
+        <UsageCount Value="3"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="../../src/commandline/linearcstatements.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="57"/>
+        <CursorPos X="47" Y="81"/>
+        <UsageCount Value="38"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="../../src/parse/tokens.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="79"/>
+        <CursorPos X="68" Y="89"/>
+        <UsageCount Value="9"/>
+      </Unit27>
+      <Unit28>
+        <Filename Value="../../src/parse/sourceexpressions.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="2"/>
+      </Unit28>
+      <Unit29>
+        <Filename Value="../../src/parse/expressions.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="7"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="2"/>
+      </Unit29>
+      <Unit30>
+        <Filename Value="../../src/parse/statements.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="129"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="2"/>
+      </Unit30>
+      <Unit31>
+        <Filename Value="../../src/parse/sourceparsers.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="117"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="2"/>
+      </Unit31>
+      <Unit32>
+        <Filename Value="../../src/parse/sourcescanners.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="105"/>
+        <CursorPos X="42" Y="144"/>
+        <UsageCount Value="19"/>
+      </Unit32>
+      <Unit33>
+        <Filename Value="../../src/parse/sourcetokens.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="658"/>
+        <CursorPos X="64" Y="680"/>
+        <UsageCount Value="16"/>
+      </Unit33>
+      <Unit34>
+        <Filename Value="../../src/parse/scanners.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="71"/>
+        <CursorPos X="24" Y="71"/>
+        <UsageCount Value="14"/>
+      </Unit34>
+      <Unit35>
+        <Filename Value="../../src/base/stringstreams.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="402"/>
+        <CursorPos X="37" Y="423"/>
+        <UsageCount Value="6"/>
+      </Unit35>
+      <Unit36>
+        <Filename Value="../../src/base/streamwrappers.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="231"/>
+        <CursorPos X="50" Y="286"/>
+        <UsageCount Value="5"/>
+      </Unit36>
+      <Unit37>
+        <Filename Value="../../src/base/textstreams.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="333"/>
+        <CursorPos X="47" Y="347"/>
+        <UsageCount Value="9"/>
+      </Unit37>
+      <Unit38>
+        <Filename Value="../../src/base/binarytrees.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="83"/>
+        <CursorPos X="19" Y="100"/>
+        <UsageCount Value="9"/>
+      </Unit38>
+      <Unit39>
+        <Filename Value="../../src/commandline/optiondictionaries.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="158"/>
+        <CursorPos X="60" Y="180"/>
+        <UsageCount Value="35"/>
+      </Unit39>
+      <Unit40>
+        <Filename Value="../../src/parse/tokenlists.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="71"/>
+        <CursorPos X="48" Y="78"/>
+        <UsageCount Value="6"/>
+      </Unit40>
+      <Unit41>
+        <Filename Value="../../src/commandline/options.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="307"/>
+        <CursorPos X="69" Y="316"/>
+        <UsageCount Value="34"/>
+      </Unit41>
+      <Unit42>
+        <Filename Value="../../src/base/stringlists.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="118"/>
+        <CursorPos X="64" Y="142"/>
+        <UsageCount Value="9"/>
+      </Unit42>
+      <Unit43>
+        <Filename Value="../../src/base/linkedlists.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="296"/>
+        <CursorPos X="67" Y="319"/>
+        <UsageCount Value="8"/>
+      </Unit43>
+      <Unit44>
+        <Filename Value="../../src/base/dictionaries.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="208"/>
+        <CursorPos X="49" Y="126"/>
+        <UsageCount Value="7"/>
+      </Unit44>
+      <Unit45>
+        <Filename Value="../../src/base/stringtrees.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="115"/>
+        <CursorPos X="50" Y="133"/>
+        <UsageCount Value="5"/>
+      </Unit45>
+      <Unit46>
+        <Filename Value="../../src/parse/symbols.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="174"/>
+        <CursorPos X="33" Y="189"/>
+        <UsageCount Value="5"/>
+      </Unit46>
+      <Unit47>
+        <Filename Value="../../src/parse/parsermessages.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="517"/>
+        <CursorPos X="36" Y="546"/>
+        <UsageCount Value="9"/>
+      </Unit47>
+      <Unit48>
+        <Filename Value="../../src/base/strings.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="419"/>
+        <CursorPos X="56" Y="447"/>
+        <UsageCount Value="7"/>
+      </Unit48>
+      <Unit49>
+        <Filename Value="/usr/local/share/lazarus/components/lazutils/lazutf8.pas"/>
+        <UnitName Value="LazUTF8"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="28"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="9"/>
+      </Unit49>
+      <Unit50>
+        <Filename Value="../../src/commandline/linearcexpressions.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="668"/>
+        <CursorPos X="43" Y="696"/>
+        <UsageCount Value="31"/>
+      </Unit50>
+      <Unit51>
+        <Filename Value="../../src/base/consolestreams.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="211"/>
+        <CursorPos X="40" Y="235"/>
+        <UsageCount Value="4"/>
+      </Unit51>
+      <Unit52>
+        <Filename Value="../../src/base/printingobjects.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="76"/>
+        <CursorPos X="13" Y="66"/>
+        <UsageCount Value="5"/>
+      </Unit52>
+      <Unit53>
+        <Filename Value="../../src/base/variantlists.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="115"/>
+        <CursorPos X="27" Y="139"/>
+        <UsageCount Value="8"/>
+      </Unit53>
+      <Unit54>
+        <Filename Value="../../src/base/applications.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="315"/>
+        <CursorPos X="48" Y="332"/>
+        <UsageCount Value="9"/>
+      </Unit54>
+      <Unit55>
+        <Filename Value="../../src/commandline/numericoptions.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="244"/>
+        <CursorPos X="29" Y="46"/>
+        <UsageCount Value="12"/>
+      </Unit55>
+      <Unit56>
+        <Filename Value="../../src/base/logging.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="285"/>
+        <CursorPos X="37" Y="301"/>
+        <UsageCount Value="9"/>
+      </Unit56>
+      <Unit57>
+        <Filename Value="../../src/commandline/listoptions.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="114"/>
+        <CursorPos X="55" Y="136"/>
+        <UsageCount Value="9"/>
+      </Unit57>
+      <Unit58>
+        <Filename Value="../../src/commandline/booleanoptions.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="13"/>
+        <CursorPos X="41" Y="31"/>
+        <UsageCount Value="8"/>
+      </Unit58>
+      <Unit59>
+        <Filename Value="../../src/base/loggeditems.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="361"/>
+        <CursorPos X="42" Y="381"/>
+        <UsageCount Value="10"/>
+      </Unit59>
+      <Unit60>
+        <Filename Value="../../src/base/streambookmarks.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="315"/>
+        <CursorPos X="50" Y="334"/>
+        <UsageCount Value="8"/>
+      </Unit60>
+      <Unit61>
+        <Filename Value="../../src/base/bookmarkedstreams.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="199"/>
+        <CursorPos X="82" Y="225"/>
+        <UsageCount Value="8"/>
+      </Unit61>
+      <Unit62>
+        <Filename Value="../../src/base/versioninfo.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="269"/>
+        <CursorPos X="42" Y="286"/>
+        <UsageCount Value="8"/>
+      </Unit62>
+      <Unit63>
+        <Filename Value="../../../libs/classwork/src/logging.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="54"/>
+        <CursorPos X="54" Y="68"/>
+        <UsageCount Value="9"/>
+      </Unit63>
+      <Unit64>
+        <Filename Value="../../src/base/consoleapplications.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="159"/>
+        <CursorPos X="6" Y="29"/>
+        <UsageCount Value="9"/>
+      </Unit64>
+      <Unit65>
+        <Filename Value="../../../libs/linearc/src/linearcexpressions.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1068"/>
+        <CursorPos X="66" Y="1075"/>
+        <UsageCount Value="12"/>
+      </Unit65>
+      <Unit66>
+        <Filename Value="../../../libs/linearc/src/linearcstatements.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="256"/>
+        <CursorPos X="41" Y="250"/>
+        <UsageCount Value="11"/>
+      </Unit66>
+      <Unit67>
+        <Filename Value="../../../libs/parse/src/parsers.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="648"/>
+        <CursorPos X="24" Y="658"/>
+        <UsageCount Value="9"/>
+      </Unit67>
+      <Unit68>
+        <Filename Value="../../../libs/parse/src/sourcetokens.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="721"/>
+        <CursorPos X="1" Y="739"/>
+        <UsageCount Value="9"/>
+      </Unit68>
+      <Unit69>
+        <Filename Value="../../../libs/parse/src/symbolcollections.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="188"/>
+        <CursorPos X="1" Y="206"/>
+        <UsageCount Value="9"/>
+      </Unit69>
+      <Unit70>
+        <Filename Value="../../../libs/classwork/src/binarytrees.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1264"/>
+        <CursorPos X="12" Y="1267"/>
+        <UsageCount Value="9"/>
+      </Unit70>
+      <Unit71>
+        <Filename Value="../../../libs/classwork/src/strings.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="107"/>
+        <CursorPos X="58" Y="119"/>
+        <UsageCount Value="9"/>
+      </Unit71>
+      <Unit72>
+        <Filename Value="../../../libs/linearc/src/options.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="645"/>
+        <CursorPos X="42" Y="653"/>
+        <UsageCount Value="10"/>
+      </Unit72>
+      <Unit73>
+        <Filename Value="../../../libs/linearc/src/optiondictionaries.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="423"/>
+        <CursorPos X="41" Y="434"/>
+        <UsageCount Value="11"/>
+      </Unit73>
+      <Unit74>
+        <Filename Value="../../../libs/linearc/src/linearctokenstrings.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="84" Y="28"/>
+        <UsageCount Value="11"/>
+      </Unit74>
+      <Unit75>
+        <Filename Value="../../../libs/classwork/src/classwork.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="25"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="9"/>
+      </Unit75>
+      <Unit76>
+        <Filename Value="../../../libs/parse/src/tokenlists.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="82"/>
+        <CursorPos X="1" Y="114"/>
+        <UsageCount Value="9"/>
+      </Unit76>
+      <Unit77>
+        <Filename Value="../../../libs/classwork/src/linkedlists.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="748"/>
+        <CursorPos X="1" Y="781"/>
+        <UsageCount Value="9"/>
+      </Unit77>
+      <Unit78>
+        <Filename Value="../../../libs/classwork/src/mappings.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="61"/>
+        <CursorPos X="67" Y="76"/>
+        <UsageCount Value="9"/>
+      </Unit78>
+      <Unit79>
+        <Filename Value="../../../libs/classwork/src/refcntobjects.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="13"/>
+        <CursorPos X="47" Y="28"/>
+        <UsageCount Value="9"/>
+      </Unit79>
+      <Unit80>
+        <Filename Value="../../../libs/classwork/src/singletons.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="81"/>
+        <CursorPos X="12" Y="93"/>
+        <UsageCount Value="9"/>
+      </Unit80>
+      <Unit81>
+        <Filename Value="../../../libs/classwork/src/dictionaries.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="148"/>
+        <CursorPos X="60" Y="171"/>
+        <UsageCount Value="9"/>
+      </Unit81>
+      <Unit82>
+        <Filename Value="../../../libs/classwork/src/objectmappings.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="108"/>
+        <CursorPos X="91" Y="121"/>
+        <UsageCount Value="9"/>
+      </Unit82>
+      <Unit83>
+        <Filename Value="../../../libs/classwork/src/miniparsers.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="32"/>
+        <CursorPos X="93" Y="46"/>
+        <UsageCount Value="9"/>
       </Unit83>
+      <Unit84>
+        <Filename Value="../../src/linearcparsers.inc"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="190"/>
+        <CursorPos X="78" Y="210"/>
+        <UsageCount Value="14"/>
+        <Loaded Value="True"/>
+      </Unit84>
+      <Unit85>
+        <Filename Value="../../src/linearcstatements.inc"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="330"/>
+        <CursorPos X="58" Y="348"/>
+        <UsageCount Value="14"/>
+        <Loaded Value="True"/>
+      </Unit85>
+      <Unit86>
+        <Filename Value="../../../parse/src/parsers.inc"/>
+        <EditorIndex Value="4"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="603"/>
+        <CursorPos X="75" Y="562"/>
+        <UsageCount Value="13"/>
+        <Loaded Value="True"/>
+      </Unit86>
+      <Unit87>
+        <Filename Value="../../src/linearcexpressions.inc"/>
+        <EditorIndex Value="5"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="937"/>
+        <CursorPos X="34" Y="948"/>
+        <UsageCount Value="14"/>
+        <Loaded Value="True"/>
+      </Unit87>
+      <Unit88>
+        <Filename Value="../../src/linearctokenstrings.inc"/>
+        <EditorIndex Value="6"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="181"/>
+        <CursorPos X="42" Y="192"/>
+        <UsageCount Value="14"/>
+        <Loaded Value="True"/>
+      </Unit88>
+      <Unit89>
+        <Filename Value="../../src/linearc.inc"/>
+        <EditorIndex Value="7"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="310"/>
+        <CursorPos X="56" Y="326"/>
+        <UsageCount Value="14"/>
+        <Loaded Value="True"/>
+      </Unit89>
+      <Unit90>
+        <Filename Value="../../../parse/src/languages.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="733"/>
+        <CursorPos X="1" Y="757"/>
+        <UsageCount Value="9"/>
+      </Unit90>
+      <Unit91>
+        <Filename Value="../../../parse/src/parsedlanguageparsers.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="209"/>
+        <CursorPos X="3" Y="213"/>
+        <UsageCount Value="11"/>
+      </Unit91>
+      <Unit92>
+        <Filename Value="../../../parse/src/symbolparsers.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="142"/>
+        <CursorPos X="34" Y="381"/>
+        <UsageCount Value="10"/>
+      </Unit92>
+      <Unit93>
+        <Filename Value="../../../parse/src/sourcetokens.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="393"/>
+        <CursorPos X="34" Y="405"/>
+        <UsageCount Value="11"/>
+      </Unit93>
+      <Unit94>
+        <Filename Value="../../../parse/src/tokens.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="550"/>
+        <CursorPos X="78" Y="561"/>
+        <UsageCount Value="10"/>
+      </Unit94>
+      <Unit95>
+        <Filename Value="../../../classwork/src/nodes.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="485"/>
+        <CursorPos X="44" Y="498"/>
+        <UsageCount Value="10"/>
+      </Unit95>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="0" HistoryIndex="-1"/>
+    <JumpHistory Count="15" HistoryIndex="14">
+      <Position1>
+        <Filename Value="../../src/linearcexpressions.inc"/>
+        <Caret Line="932" Column="1" TopLine="907"/>
+      </Position1>
+      <Position2>
+        <Filename Value="../../src/linearcexpressions.inc"/>
+        <Caret Line="930" Column="1" TopLine="907"/>
+      </Position2>
+      <Position3>
+        <Filename Value="../../src/linearcexpressions.inc"/>
+        <Caret Line="927" Column="33" TopLine="876"/>
+      </Position3>
+      <Position4>
+        <Filename Value="../../src/linearcexpressions.inc"/>
+        <Caret Line="887" Column="1" TopLine="876"/>
+      </Position4>
+      <Position5>
+        <Filename Value="../../src/linearcexpressions.inc"/>
+        <Caret Line="888" Column="1" TopLine="876"/>
+      </Position5>
+      <Position6>
+        <Filename Value="../../src/linearcexpressions.inc"/>
+        <Caret Line="890" Column="1" TopLine="876"/>
+      </Position6>
+      <Position7>
+        <Filename Value="../../src/linearcexpressions.inc"/>
+        <Caret Line="893" Column="1" TopLine="876"/>
+      </Position7>
+      <Position8>
+        <Filename Value="../../src/linearcexpressions.inc"/>
+        <Caret Line="898" Column="1" TopLine="876"/>
+      </Position8>
+      <Position9>
+        <Filename Value="../../src/linearcexpressions.inc"/>
+        <Caret Line="923" Column="1" TopLine="907"/>
+      </Position9>
+      <Position10>
+        <Filename Value="../../src/linearcexpressions.inc"/>
+        <Caret Line="894" Column="51" TopLine="870"/>
+      </Position10>
+      <Position11>
+        <Filename Value="../../src/linearcexpressions.inc"/>
+        <Caret Line="898" Column="41" TopLine="884"/>
+      </Position11>
+      <Position12>
+        <Filename Value="../../src/linearcexpressions.inc"/>
+        <Caret Line="887" Column="1" TopLine="881"/>
+      </Position12>
+      <Position13>
+        <Filename Value="../../src/linearcexpressions.inc"/>
+        <Caret Line="475" Column="1" TopLine="457"/>
+      </Position13>
+      <Position14>
+        <Filename Value="../../src/linearcexpressions.inc"/>
+        <Caret Line="642" Column="1" TopLine="625"/>
+      </Position14>
+      <Position15>
+        <Filename Value="../../src/linearcparsers.inc"/>
+        <Caret Line="177" Column="30" TopLine="165"/>
+      </Position15>
+    </JumpHistory>
   </ProjectSession>
   <EditorMacros Count="0"/>
 </CONFIG>
