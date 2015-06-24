@@ -53,7 +53,7 @@ various links used in the text above.)_
 [classwork.pp]: http://docs.circusmachina.com/libs/classwork/
 [parsing.pp]: http://docs.circusmachina.com/libs/parsing/
 
-[ALinearCParser]: http://docs.circusmachina.com/libs/linearc/linearc.ALinearCParser.html
-[ALinearCConsoleApplication]: http://docs.circusmachina.com/libs/linearc/linearc.ALinearCConsoleApplication.html
+[ALinearCParser]: http://docs.circusmachina.com/libs/linearc/html/linearc.ALinearCParser.html
+[ALinearCConsoleApplication]: http://docs.circusmachina.com/libs/linearc/html/linearc.ALinearCConsoleApplication.html
 [articles]: http://www.circusmachina.com/gladius/Tags/LinearC
 
