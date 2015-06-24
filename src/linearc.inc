@@ -27,13 +27,22 @@ const
 
   lcopAnd                = TOKCAT_KEYWORD + (ord('a') shl 8);
 
+  lcopEquality           = TOKCAT_KEYWORD + (ord('e') shl 8);
+
   lckwFalse              = TOKCAT_KEYWORD + (ord('f') shl 8);
+
+  lcopGreater            = TOKCAT_KEYWORD + (ord('g') shl 8);
+  lcopGreaterOrEqual     = lcopGreater + 1;
+
+  lcopLesser             = TOKCAT_KEYWORD + (ord('l') shl 8);
+  lcopLesserOrEqual      = lcopLesser + 1;
 
   lcopModulo             = TOKCAT_KEYWORD + (ord('m') shl 8);
 
   lcopNot                = TOKCAT_KEYWORD + (ord('n') shl 8);
   lckwNoShort            = lcopNot + 1;
   lckwNoFull             = lckwNoShort + 1;
+  lcopInequality         = lckwNoFull + 1;
 
   lcopOr                 = TOKCAT_KEYWORD + (ord('o') shl 8);
   lckwOn                 = lcopOr + 1;
@@ -43,6 +52,8 @@ const
   lcopShr                = lcopShl + 1;
 
   lckwTrue               = TOKCAT_KEYWORD + (ord('t') shl 8);
+
+  lcopXor                = TOKCAT_KEYWORD + (ord('x') shl 8);
 
   lckwYesShort           = TOKCAT_KEYWORD + (ord('y') shl 8);
   lckwYesFull            = lckwYesShort + 1;
@@ -61,7 +72,7 @@ const
     static array pair which is passed to @link(AnOpcodeDictionary.bindSeveral)
     by @link(TheLinearCLanguage.defineOpcodes).
   }
-  lcOpcodeCount = 27;
+  lcOpcodeCount = 34;
 
   { This constant represents one of the rules defined by
     @link(TheLinearCLanguage.defineRules); in this case, the tokens that are
@@ -120,6 +131,24 @@ const
     that may precede an assignment expression.
   }
   RULE_PRECEDE_ASSIGNMENT = RULE_BEGIN_PATH + 1;
+
+  { This constant represents one of the rules defined by
+    @link(TheLinearCLanguage.defineRules); in this case, the types of tokens
+    that may be used as arithmetic operators.
+  }
+  RULE_ARITHMETIC_OPERATORS = RULE_PRECEDE_ASSIGNMENT + 1;
+
+  { This constant represents one of the rules defined by
+    @link(TheLinearCLanguage.defineRules); in this case, the types of tokens
+    that may be used as bitwise operators.
+  }
+  RULE_BITWISE_OPERATORS = RULE_ARITHMETIC_OPERATORS + 1;
+
+  { This constant represents one of the rules defined by
+    @link(TheLinearCLanguage.defineRules); in this case, the types of tokens
+    that may be used as equality-test operators.
+  }
+  RULE_EQUALITY_OPERATORS = RULE_BITWISE_OPERATORS + 1;
 
 // TheLinearCLanguage **********************************************************
 { This class represents the language specification for a command-line
@@ -204,10 +233,13 @@ const
     lcopPlus, lcOpMinus, lcOpTimes, lcopDivide,
     lcopModulo, lcopExponent,
     lcopShl, lcopShr,
-    lcopAnd, lcopOr, lcopNot,
+    lcopAnd, lcopOr, lcopNot, lcopXor,
     lcdlBeginLongOption,
     lcdlBeginShortOption,
     lcopAssign,
+    lcopEquality, lcopInequality,
+    lcopGreater, lcopGreaterOrEqual,
+    lcopLesser, lcopLesserOrEqual,
     lckwTrue, lckwFalse,
     lckwOn, lckwOff,
     lckwYesShort, lckwYesFull,
@@ -226,10 +258,13 @@ const
     lcopPlusString, lcopMinusString, lcopTimesString, lcopDivideString,
     lcopModuloString, lcopExponentString,
     lcopShlString, lcopShrString,
-    lcopAndString, lcopOrString, lcopNotString,
+    lcopAndString, lcopOrString, lcopNotString, lcopXorString,
     clopParameterNameDelimiter,
     clopParameterAbbreviationDelimiter,
     clopAssignmentOperator,
+    lcopEqualityString, lcopInequalityString,
+    lcopGreaterString, lcopGreaterOrEqualString,
+    lcopLesserString, lcopLesserOrEqualString,
     lckwTrueString, lckwFalseString,
     lckwOnString, lckwOffString,
     lckwYesShortString, lckwYesFullString,
@@ -288,7 +323,7 @@ begin
 
   // Define the tokens which may end a statement
   MySyntaxRules.Rule(RULE_END_STATEMENT).addSeveral([
-    TOKCAT_SPACE, TOKCAT_EOS
+    lcdlRightParen, TOKCAT_SPACE, TOKCAT_EOS
   ]);
 
   // Define the tokens which may begin an expression
@@ -337,6 +372,22 @@ begin
   // Define the tokens that may precede an assignment expression
   MySyntaxRules.addNewRule(RULE_PRECEDE_ASSIGNMENT, [
     lcopAssign, TOKCAT_SPACE
+  ]);
+
+  // Define the tokens that may be used as arithmetic operators
+  MySyntaxRules.addNewRule(RULE_ARITHMETIC_OPERATORS, [
+    lcopPlus, lcopMinus, lcopTimes, lcopDivide, lcopExponent
+  ]);
+
+  // Define the tokens that may be used as bitwise operators
+  MySyntaxRules.addNewRule(RULE_BITWISE_OPERATORS, [
+    lcopAnd, lcopOr, lcopXor, lcopShl, lcopShr
+  ]);
+
+  // Define the tokens that may be used as equality-test operators
+  MySyntaxRules.addNewRule(RULE_EQUALITY_OPERATORS, [
+    lcopEquality, lcopInequality, lcopGreater, lcopGreaterOrEqual,
+    lcopLesser, lcopLesserOrEqual
   ]);
 end;
 {$ENDIF}

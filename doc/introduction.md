@@ -1,5 +1,5 @@
 **linearc.pp**: A command-line parser.
-Copyright (C) 2014-2015 by [Michael Malicoat][Author]  
+Copyright (C) 2014-2015 by [Michael Malicoat][Author].  
 [Home page][] | [Source][] | [Source documentation][] (you're looking at it) |
 [Bug tracker][]
 

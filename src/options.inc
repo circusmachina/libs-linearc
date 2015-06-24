@@ -106,7 +106,8 @@ type
     The method invoked should return @true if processing of other callbacks
     should continue, and @false if not.
   }
-  AnOptionDirtiedHandler = function(const ThisOption: ACommandLineOption): boolean of object;
+  AnOptionDirtiedHandler =
+    function(const ThisOption: ACommandLineOption): boolean of object;
 
   ACommandLineOption = class(ADictionaryEntry)
   protected
@@ -477,6 +478,13 @@ const
   }
   clopDefaultValueRepresentation = '  Defaults to %s.';
 
+  { This string controls the string used to indicate when an option is required.
+    It is part of the string returned to the caller when
+    @link(ACommandLineOption.usageString) is called, but only if the value of
+    @link(ACommandLineOption.required) is @true.
+  }
+  clopRequiredRepresentation = '  This option is required.';
+
   { This string controls the format of the error message issued in the event
     that @link(ACommandLineOption.setValue) is given a value that it cannot
     use, based on the definition of the option.
@@ -601,6 +609,8 @@ var
   AbbreviatedForms: AStringList;
   // Stores a string that indicates the parameter prefix
   parameterPrefix: string;
+  // Stores a string that indicates the name and value delimiter
+  valueDelimiter: string;
 
 begin
   result := Charstring.ofCharacter(tosWrapDefaultPadCharacter, clopNameColumn);
@@ -625,11 +635,15 @@ begin
   if not(ovtRest in Self.optionType) then
     parameterPrefix := clopParameterNameDelimiter;
 
+  // Rest arguments do not get a value delimiter
+  valueDelimiter := ' ';
+  if not(ovtRest in Self.optionType) then
+    valueDelimiter := clopAssignmentOperator;
+
   // Include the name and value description
   if not(ovtFlag in Self.optionType) then
     result := result + SysUtils.format(clopAssignmentRepresentation, [
-      parameterPrefix, Self.name, clopAssignmentOperator,
-      Self.valueDescription
+      parameterPrefix, Self.name, valueDelimiter, Self.valueDescription
     ])
 
   else
@@ -645,13 +659,17 @@ begin
     Self.description
   ]);
 
-  // Finally, add the default value
+  // Add the default value
   if (not (ovtFlag in Self.optionType)) and (Self.required = false) and
     (Self.defaultValue <> Variants.null) and
       (VarToStr(Self.defaultValue) <> '') then
         result := result + SysUtils.format(clopDefaultValueRepresentation, [
           Variants.varToStr(Self.defaultValue)
         ]);
+
+  // Finally, indicate whether it is required
+  if Self.required then
+    result := result + clopRequiredRepresentation;
 end;
 
 // Construct a shallow copy of the other item

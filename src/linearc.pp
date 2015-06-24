@@ -55,23 +55,23 @@ uses
 {$UNDEF ReadInterface}
 
 resourcestring
-  {$DEFINE ReadResourceStrings}
-  {$I options.inc}
-  {$I booleanoptions.inc}
-  {$I numericoptions.inc}
-  {$I listoptions.inc}
-  {$I optiondictionaries.inc}
-  {$I linearctokenstrings.inc}
-  {$I linearcstatements.inc}
-  {$I linearcexpressions.inc}
-  {$I linearcapplications.inc}
+{$DEFINE ReadResourceStrings}
+{$I options.inc}
+{$I booleanoptions.inc}
+{$I numericoptions.inc}
+{$I listoptions.inc}
+{$I optiondictionaries.inc}
+{$I linearctokenstrings.inc}
+{$I linearcstatements.inc}
+{$I linearcexpressions.inc}
+{$I linearcapplications.inc}
 
-  {$UNDEF ReadResourceStrings}
+{$UNDEF ReadResourceStrings}
 
 implementation
 
 uses
-  Math, SysUtils;
+  Math, StrUtils, SysUtils;
 
 {$DEFINE ReadImplementation}
 {$I options.inc}

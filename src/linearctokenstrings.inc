@@ -111,7 +111,7 @@
     To do so, it must define some tokens that represent basic mathematical
     operations.  This string defines one such token.
   }
-  lcopModuloString                 = 'mod';
+  lcopModuloString                 = 'MOD';
 
   { The LinearC parser supports basic arithmetic operations on the command line.
     To do so, it must define some tokens that represent basic mathematical
@@ -123,31 +123,73 @@
     the language must define some tokens that represent such operations.  This
     string defines one such token.
   }
-  lcopShlString                    = 'shl';
+  lcopShlString                    = 'SHL';
 
   { The LinearC parser allows bitwise operations on numeric values.  To do so,
     the language must define some tokens that represent such operations.  This
     string defines one such token.
   }
-  lcopShrString                    = 'shr';
+  lcopShrString                    = 'SHR';
 
   { The LinearC parser allows bitwise operations on numeric values.  To do so,
     the language must define some tokens that represent such operations.  This
     string defines one such token.
   }
-  lcopAndString                    = 'and';
+  lcopAndString                    = 'AND';
 
   { The LinearC parser allows bitwise operations on numeric values.  To do so,
     the language must define some tokens that represent such operations.  This
     string defines one such token.
   }
-  lcopOrString                     = 'or';
+  lcopOrString                     = 'OR';
+
+  { The LinearC parser allows bitwise operations on numeric values.  To do so,
+    the language must define some tokens that represent such operations.  This
+    string defines one such token.
+  }
+  lcopXorString                     = 'XOR';
 
   { The LinearC parser allows boolean options to be defined as NOT true or
     NOT false.  To do so, the language must define a token which represents
     a boolean NOT operation.  This string defines that token.
   }
-  lcopNotString                    = 'not';
+  lcopNotString                     = 'NOT';
+
+  { The LinearC parser allows equality tests on numeric values.  To do so,
+    the language must define some tokens that represent such operations.  This
+    string defines one such token.
+  }
+  lcopEqualityString                = 'EQ';
+
+  { The LinearC parser allows equality tests on numeric values.  To do so,
+    the language must define some tokens that represent such operations.  This
+    string defines one such token.
+  }
+  lcopInequalityString              = 'NEQ';
+
+  { The LinearC parser allows equality tests on numeric values.  To do so,
+    the language must define some tokens that represent such operations.  This
+    string defines one such token.
+  }
+  lcopGreaterString                = 'GT';
+
+  { The LinearC parser allows equality tests on numeric values.  To do so,
+    the language must define some tokens that represent such operations.  This
+    string defines one such token.
+  }
+  lcopGreaterOrEqualString         = 'GEQ';
+
+  { The LinearC parser allows equality tests on numeric values.  To do so,
+    the language must define some tokens that represent such operations.  This
+    string defines one such token.
+  }
+  lcopLesserString                = 'LT';
+
+  { The LinearC parser allows equality tests on numeric values.  To do so,
+    the language must define some tokens that represent such operations.  This
+    string defines one such token.
+  }
+  lcopLesserOrEqualString        = 'LEQ';
 
   { In order to parse strings, the LinearC parser must know when one begins and
     ends.  Since strings are usually delimited by quotation marks, this string

@@ -117,6 +117,29 @@ type ALinearCBooleanExpression = class(ALinearCExpression)
     function parse: int64; override;
 end;
 
+// ALinearCIdentifierExpression ************************************************
+{ This class represents an identifier expression in LinearC, which is an
+  expression that refers to the name of an option.  The value of the option is
+  assigned to the value of the expression.
+}
+type ALinearCIdentifierExpression = class(ALinearCExpression)
+  public
+    { Parse the expression.
+
+      This method uses the literal text of the current token to look up the
+      named option in @link(ALinearCExpression.Options Self.Options).  The value
+      of the option is stored as the value of the expression.
+
+      If the token text specifies an option that is not known, then it is
+      treated instead as an unquoted string literal and the literal text of
+      the token is stored as the value of the expression.
+
+      On return from this routine, the current token in the parent expression
+      will refer to the token immediately following the identifier.
+    }
+    function parse: int64; override;
+end;
+
 // ALinearCStringExpression ****************************************************
 { This class represents a string expression in LinearC, which is an expression
   that consists of a single string, delimited by either
@@ -138,6 +161,15 @@ type ALinearCStringExpression = class(ALinearCExpression)
       delimiter.
     }
     function parse: int64; override;
+
+    { Convert a C-style escape sequence into a string value.
+
+      This method converts a C-style escape sequence into a string of one or
+      more characters that can be appended to a string.  It is called by
+      @link(ALinearCStringExpression.parse) whenever it encounters what appears
+      to be a C-style escape sequence.
+    }
+    function convertEscapeSequence: string; virtual;
 end;
 
 // ALinearCPathExpression ******************************************************
@@ -211,10 +243,131 @@ type ALinearCCompoundExpression = class(ALinearCExpression)
       @link(ALinearCCompoundExpression.parse) after two subexpressions,
       separated by an operator, have been parsed.
 
+      Depending on the value of
+      @link(ALinearCCompoundExpression.operation Self.operation), this method
+      will call
+      @link(ALinearCCompoundExpression.performArithmeticOperation Self.performArithmeticOperation),
+      @link(ALinearCCompoundExpression.performBitwiseOperation Self.performBitwiseOperation), or
+      @link(ALinearCCompoundExpression.performEqualityTestOperation Self.performEqualityTestOperation).
+      If the method called returns @false, then this method flags a syntax
+      error.
+
       @return(The total number of errors that occurred while attempting to
       perform the operation.  A value of zero (0) indicates success.)
     }
     function performOperation: int64; virtual;
+
+    { Perform an arithmetic operation that involves
+      @link(ALinearCExpression.value Self.value) and the value of
+      @link(AParser.CurrentElement Self.CurrentElement).
+
+      The type of value stored in @link(ALinearCExpression.value Self.value)
+      determines the type of operation performed: @unorderedList(
+        @item(If @link(ALinearCExpression.value Self.value) is a string value,
+          then
+          @link(AParser.CurrentElement Self.CurrentElement) is cast as a
+          string and then: @unorderedList(
+            @item(If @link(ALinearCCompoundExpression.operation Self.operation)
+              is @link(lcopPlus), the value of
+              @link(AParser.CurrentElement Self.CurrentElement) is appended to
+              the end of @link(ALinearCExpression.value Self.value).)
+
+            @item(If @link(ALinearCCompoundExpression.operation Self.operation)
+              is @link(lcopMinus), then all occurrences of the value specified
+              by @link(AParser.CurrentElement Self.CurrentElement) are removed
+              from @link(ALinearCExpression.value Self.value).)
+
+            @item(If @link(ALinearCCompoundExpression.operation Self.operation)
+              is @link(lcopTimes), then the value in
+              @link(ALinearCExpression.value Self.value) is repeated the number
+              of times specified by
+              @link(AParser.CurrentElement Self.CurrentElement).)
+          )
+        )
+
+        @item(If @link(ALinearCExpression.value Self.value) is a floating-point
+          or integer value, then the value of
+          @link(AParser.CurrentElement Self.CurrentElement) is cast to the
+          appropriate type and the relevant mathematical operation is performed.
+          For division and modulus division, the method ensures that the value
+          of
+          @link(AParser.CurrentElement Self.CurrentElement) is not zero
+          (@code(0)) so as to avoid division-by-zero errors.)
+
+        @item(For all other types, this method fails and returns @false.)
+      )
+
+      If an exception is thrown when attempting to cast the value of
+      @link(AParser.CurrentElement Self.CurrentElement) to the correct type,
+      this method will exit and the caller is expected to handle the exception.
+      When called from @link(ALinearCCompoundExpression.performOperation), a
+      syntax error message is generated in response to the exception.
+
+      @return(@true if the operation was successfully performed; @false
+        otherwise.)
+    }
+    function performArithmeticOperation: boolean; virtual;
+
+    { Perform a bitwise or logical operation that involves
+      @link(ALinearCExpression.value Self.value) and the value of
+      @link(AParser.CurrentElement Self.CurrentElement).
+
+      The type of value stored in @link(ALinearCExpression.value Self.value)
+      determines the type of operation performed: @unorderedList(
+        @item(If @link(ALinearCExpression.value Self.value) is a boolean value
+          and @link(ALinearCCompoundExpression.operation Self.operation) is
+          @link(lcopAnd) or @link(lcopOr), then the value of
+          @link(AParser.CurrentElement Self.CurrentElement) is cast as a
+          boolean value and the relevant logical operation is performed.)
+
+        @item(If @link(ALinearCExpression.value Self.value) is an integer value,
+          @link(AParser.CurrentElement Self.CurrentElement) is cast to the
+          appropriate type and the relevant bitwise operation is performed.)
+
+        @item(For all other types, this method fails and returns @false.)
+      )
+
+      If an exception is thrown when attempting to cast the value of
+      @link(AParser.CurrentElement Self.CurrentElement) to the correct type,
+      this method will exit and the caller is expected to handle the exception.
+      When called from @link(ALinearCCompoundExpression.performOperation), a
+      syntax error message is generated in response to the exception.
+
+      @return(@true if the operation was successfully performed; @false
+        otherwise.)
+    }
+    function performBitwiseOperation: boolean; virtual;
+
+    { Perform an equality-test operation that involves
+      @link(ALinearCExpression.value Self.value) and the value of
+      @link(AParser.CurrentElement Self.CurrentElement).
+
+      The type of value stored in @link(ALinearCExpression.value Self.value)
+      determines the type of operation performed: @unorderedList(
+        @item(If @link(ALinearCExpression.value Self.value) is a string, then
+          the value of
+          @link(AParser.CurrentElement Self.CurrentElement) is cast as a
+          string and @code(SysUtils.ansiCompareStr) is used to determine the
+          relative equality of the two string values.)
+
+        @item(If @link(ALinearCExpression.value Self.value) is an integer value
+          or a floating point value
+          @link(AParser.CurrentElement Self.CurrentElement) is cast to the
+          appropriate type and the relevant equality test is performed.)
+
+        @item(For all other types, this method fails and returns @false.)
+      )
+
+      If an exception is thrown when attempting to cast the value of
+      @link(AParser.CurrentElement Self.CurrentElement) to the correct type,
+      this method will exit and the caller is expected to handle the exception.
+      When called from @link(ALinearCCompoundExpression.performOperation), a
+      syntax error message is generated in response to the exception.
+
+      @return(@true if the operation was successfully performed; @false
+        otherwise.)
+    }
+    function performEqualityTestOperation: boolean; virtual;
 
     // Properties --------------------------------------------------------------
     { Retrieve the operator encountered while parsing the compound expression,
@@ -283,8 +436,24 @@ end;
     @link(ATokenFromSource.toString ANumericConstantToken.toString).
   }
   lcnxErrorInvalidNumber = 'invalid number: %s';
+
+  { This string controls the format of the error message emitted by
+    @link(ALinearCStringExpression.convertEscapeSequence) when it encounters
+    something that looks like it should be a C-style escape sequence, but
+    cannot parse it.
+
+    The string placeholder is filled with a string representatin of the
+    offending token, as obtained by calling @link(ATokenFromSource.toString).
+  }
+  lcsxErrorInvalidEscapeSpecifier = 'invalid escape specifier: %s';
 {$ENDIF}
 {$IFDEF ReadImplementation}
+const
+  { This constant controls the maximum number of times that a string can be
+    repeated as part of a string-multiplication expression.
+  }
+  LCSX_STRING_MULTIPLIER_MAX = 255;
+
 // ALinearCExpression **********************************************************
 // Constructor
 constructor ALinearCExpression.forSource(const ThisParent: AParser);
@@ -353,9 +522,9 @@ begin
     TOKCAT_NUMBER:
       Expression := ALinearCNumericExpression.forSource(Self);
 
-    // A string (unquoted)
+    // An option name or a string (unquoted)
     TOKCAT_IDENTIFIER:
-      Expression := ALinearCStringExpression.forSource(Self);
+      Expression := ALinearCIdentifierExpression.forSource(Self);
 
   else
     // A string
@@ -445,7 +614,13 @@ begin
   Result := nil;
 
   if MyParent is ALinearCParser then
-    Result := ALinearCParser(MyParent).Options;
+    Result := ALinearCParser(MyParent).Options
+
+  else if MyParent is ALinearCStatement then
+    Result := ALinearCStatement(MyParent).Options
+
+  else if MyParent is ALinearCExpression then
+    Result := ALinearCExpression(MyParent).Options;
 end;
 
 
@@ -495,6 +670,23 @@ begin
   NextToken;
 end;
 
+// ALinearCIdentifierExpression ************************************************
+// Parse the identifier
+function ALinearCIdentifierExpression.parse: int64;
+
+begin
+  result := 0;
+
+  // Look up the value
+  if Self.Options.hasSymbolNamed(ATokenFromSource(CurrentToken).text) then
+    myValue := Self.Options.valueOf(ATokenFromSource(CurrentToken).text)
+
+  else
+    myValue := ATokenFromSource(CurrentToken).text;
+
+  NextToken;
+end;
+
 // ALinearCStringExpression ****************************************************
 // Initializer
 function ALinearCStringExpression.init: boolean;
@@ -520,13 +712,6 @@ var
 begin
   result := 0;
 
-  if CurrentToken.opcode = TOKCAT_IDENTIFIER then
-  begin
-    myValue := ATokenFromSource(CurrentToken).text;
-    NextToken;
-    exit;
-  end;
-
   { Whitespace is important }
   scannerBehavior := MyScanner.tokenBehaviors;
   MyScanner.setTokenBehaviors(scannerBehavior -
@@ -547,8 +732,14 @@ begin
     if CurrentToken.opcode = TOKCAT_EOS then
       raise FatalError(parsFatalUnexpectedEOS, []);
 
-    // Add the token literal
-    myValue := myValue + ATokenFromSource(CurrentToken).text;
+    // Handle C escapes
+    if CurrentToken.opcode = lcdlBackslash then
+      myValue := myValue + Self.convertEscapeSequence
+
+    else
+      // Add the token literal
+      myValue := myValue + ATokenFromSource(CurrentToken).text;
+
     // Get the next token
     NextToken;
   end;
@@ -560,6 +751,78 @@ begin
   NextToken;
 
   result := Self.Log.Counter(lgerCounterName).value;
+end;
+
+// Return a string built out of a C escape sequence
+function ALinearCStringExpression.convertEscapeSequence: string;
+
+var
+  // Stores the escape character
+  escapeCharacter: string;
+  // Stores the remaining text
+  remainingText: string;
+
+begin
+  result := '';
+
+  // Skip the backslash
+  NextToken;
+
+  // Do we have an identifier?
+  if CurrentToken.opcode = TOKCAT_IDENTIFIER then
+  begin
+    remainingText := ATokenFromSource(CurrentToken).text;
+
+    // Check the first character for an escape sequence
+    escapeCharacter := Charstring.character(remainingText, 1);
+    // Strip the first character from the remaining text
+    remainingText := copy(remainingText, System.length(escapeCharacter) + 1,
+      System.length(remainingText));
+
+    case escapeCharacter of
+      'a':
+        result := #7;
+
+      'b':
+        result := #8;
+
+      'f':
+        result := #$C;
+
+      'n':
+        result := System.lineEnding;
+
+      'r':
+        result := #$D;
+
+      't':
+        result := #9;
+
+      'v':
+        result := #$B;
+
+    else
+      syntaxError(lcsxErrorInvalidEscapeSpecifier, [CurrentToken.toString]);
+    end;
+
+    result := result + remainingText;
+  end
+
+  // A backslash character or quote?
+  else
+    case CurrentToken.opcode of
+      lcdlBackslash, lcdlQuote1, lcdlQuote2:
+        result := ATokenFromSource(CurrentToken).text;
+
+    else
+      // A number?
+      if CurrentToken.opcode = TOKCAT_NUMBER then
+        result :=
+          Charstring.fromUnicodeCharacter(trunc(ANumericConstantToken(CurrentToken).value));
+    end;
+
+  if result = '' then
+    syntaxError(lcsxErrorInvalidEscapeSpecifier, [CurrentToken.toString]);
 end;
 
 // ALinearCPathExpression ******************************************************
@@ -717,122 +980,29 @@ begin
       subexpression is encountered.  Since it is the left-hand operand, its
       type will determine how we handle the various operations.
     }
-    case myOperation of
-      lcopPlus:
-        if VarIsStr(myValue) then
-        begin
-          myValue := myValue +
-            VarToStr(ALinearCExpression(CurrentElement).value);
 
-          operationSucceeded := true;
-        end
+    // Perform an arithmetic operation
+    if Self.Language.SyntaxRule(RULE_ARITHMETIC_OPERATORS).has(myOperation) then
+      operationSucceeded := Self.performArithmeticOperation
 
-        else if VarIsNumeric(myValue) then
-        begin
-          myValue := myValue +
-            double(ALinearCExpression(CurrentElement).value);
+    // Perform a bitwise operation
+    else if Self.Language.SyntaxRule(RULE_BITWISE_OPERATORS).has(myOperation)
+      then
+      operationSucceeded := Self.performBitwiseOperation
 
-          operationSucceeded := true;
-        end;
+    // Peform an equality-test operation
+    else if Self.Language.SyntaxRule(RULE_EQUALITY_OPERATORS).has(myOperation)
+      then
+      operationSucceeded := Self.performEqualityTestOperation;
 
-      lcopMinus:
-        if VarIsNumeric(myValue) then
-        begin
-          myValue := myValue -
-            double(ALinearCExpression(CurrentElement).value);
+    if operationSucceeded = false then
+    begin
+      syntaxError(lccxErrorInvalidOperation, [
+        PreviousElement.toString, CurrentElement.toString
+      ]);
 
-          operationSucceeded := true;
-        end;
-
-      lcopTimes:
-        if VarIsNumeric(myValue) then
-        begin
-          myValue := myValue *
-            double(ALinearCExpression(CurrentElement).value);
-
-          operationSucceeded := true;
-        end;
-
-      lcopDivide:
-        // Prevent attempts to divide by zero
-        if (VarIsNumeric(myValue)) and
-          (double(ALinearCExpression(CurrentElement).value) <> 0) then
-        begin
-          myValue := myValue /
-            double(ALinearCExpression(CurrentElement).value);
-
-          operationSucceeded := true;
-        end;
-
-      lcopModulo:
-        // Prevent attempts to divide by zero
-        if (VarIsNumeric(myValue)) and
-          (int64(ALinearCExpression(CurrentElement).value) <> 0) then
-        begin
-          myValue := myValue mod
-            int64(ALinearCExpression(CurrentElement).value);
-
-          operationSucceeded := true;
-        end;
-
-      lcopExponent:
-        if VarIsNumeric(myValue) then
-        begin
-          myValue := Math.power(myValue,
-            double(ALinearCExpression(CurrentElement).value));
-
-          operationSucceeded := true;
-        end;
-
-      lcopShl:
-        // Works only on integer values
-        if (VarIsNumeric(myValue)) and (not(VarIsFloat(myValue))) then
-        begin
-          myValue := myValue shl
-            longword(ALinearCExpression(CurrentElement).value);
-
-          operationSucceeded := true;
-        end;
-
-      lcopShr:
-        // We can do this only to integer values
-        if (VarIsNumeric(myValue)) and (not(VarIsFloat(myValue))) then
-        begin
-          myValue := myValue shr
-            longword(ALinearCExpression(CurrentElement).value);
-
-          operationSucceeded := true;
-        end;
-
-      lcopAnd:
-        // We can do this only to integer values
-        if (VarIsNumeric(myValue)) and (not(VarIsFloat(myValue))) then
-        begin
-          myValue := myValue and
-            int64(ALinearCExpression(CurrentElement).value);
-
-          operationSucceeded := true;
-        end;
-
-      lcopOr:
-        // We can do this only to integer values
-        if (VarIsNumeric(myValue)) and (not(VarIsFloat(myValue))) then
-        begin
-          myValue := myValue or
-            int64(ALinearCExpression(CurrentElement).value);
-
-          operationSucceeded := true;
-        end;
+      inc(result);
     end;
-
-  if operationSucceeded = false then
-  begin
-    syntaxError(lccxErrorInvalidOperation, [
-      PreviousElement.toString, CurrentElement.toString
-    ]);
-
-    inc(result);
-  end;
 
   except
     { This should catch any typecast errors generated by attempting to cast
@@ -850,6 +1020,301 @@ begin
 
       E.free;
     end;
+  end;
+end;
+
+// Perform an arithmetic operation
+function ALinearCCompoundExpression.performArithmeticOperation: boolean;
+
+var
+  // Stores the left-hand operand
+  leftHand: Variant;
+  // Stores the right-hand operand
+  rightHand: Variant;
+
+begin
+  result := false;
+
+  try
+    { myValue is set by Self.parse after the first subexpression is encountered.
+      Since it is the left-hand operand, its type will determine how we handle
+      the various operations.
+    }
+    leftHand := myValue;
+
+    if varIsStr(leftHand) then
+      rightHand := varToStr(ALinearCExpression(CurrentElement).value)
+
+    else if varIsFloat(leftHand) then
+      rightHand := double(ALinearCExpression(CurrentElement).value)
+
+    else if varType(leftHand) in ordinalVarTypes then
+      rightHand := int64(ALinearCExpression(CurrentElement).value)
+
+    else
+      // No other types are supported
+      exit;
+
+    // Perform the operation
+    case myOperation of
+      lcopPlus: begin
+        myValue := leftHand + rightHand;
+        result := true;
+      end;
+
+      lcopMinus: begin
+        // Remove all occurrences of the given substring
+        if varIsStr(leftHand) then
+          myValue := StrUtils.ansiReplaceStr(varToStr(leftHand),
+            varToStr(rightHand), '')
+
+        else
+          myValue := leftHand - rightHand;
+
+        result := true;
+      end;
+
+      lcopTimes: begin
+        // Fill a string with a repeating value
+        if varIsStr(leftHand) then
+        begin
+          rightHand := ALinearCExpression(CurrentElement).value;
+
+          if varIsNumeric(rightHand) then
+          begin
+            // Cap the number of repetitions to prevent buffer overruns
+            if rightHand > LCSX_STRING_MULTIPLIER_MAX then
+              rightHand := LCSX_STRING_MULTIPLIER_MAX;
+
+            myValue := Charstring.ofString(varToStr(leftHand),
+              trunc(rightHand));
+
+            result := true;
+          end;
+        end
+
+        else begin
+          myValue := leftHand * rightHand;
+          result := true;
+        end;
+      end;
+
+      lcopDivide: begin
+        // This operation cannot be performed on strings
+        if varIsNumeric(leftHand) then
+        begin
+          // Prevent division by zero
+          if rightHand <> 0 then
+          begin
+            if varIsFloat(leftHand) then
+              myValue := leftHand / rightHand
+
+            else
+              myValue := leftHand div rightHand;
+
+            result := true;
+          end;
+        end;
+      end;
+
+      lcopModulo: begin
+        // This operation cannot be performed on strings
+        if varIsNumeric(leftHand) then
+        begin
+          // Prevent division by zero
+          if rightHand <> 0 then
+          begin
+            myValue := leftHand mod rightHand;
+            result := true;
+          end;
+        end;
+      end;
+
+      lcopExponent: begin
+        // This operation cannot be performed on strings
+        if varIsNumeric(leftHand) then
+        begin
+          if varIsFloat(leftHand) then
+            myValue := Math.power(leftHand, rightHand)
+
+          else
+            myValue := trunc(Math.power(leftHand, rightHand));
+
+          result := true;
+        end;
+      end;
+    end;
+
+  finally
+    // Do nothing; let the caller handle exceptions
+  end;
+end;
+
+// Perform a bitwise operation
+function ALinearCCompoundExpression.performBitwiseOperation: boolean;
+
+var
+  // Stores the left-hand operand
+  leftHand: Variant;
+  // Stores the right-hand operand
+  rightHand: Variant;
+
+begin
+  result := false;
+
+  try
+    { myValue is set by Self.parse after the first subexpression is encountered.
+      Since it is the left-hand operand, its type will determine how we handle
+      the various operations.
+    }
+    leftHand := myValue;
+
+    if varIsBool(leftHand) then
+      rightHand := boolean(ALinearCExpression(CurrentElement).value)
+
+    else if varType(leftHand) in ordinalVarTypes then
+      rightHand := int64(ALinearCExpression(CurrentElement).value)
+
+    else
+      // These operation cannot be applied to any other type
+      exit;
+
+    // Perform the operation
+    case myOperation of
+      lcopAnd: begin
+        myValue := leftHand and rightHand;
+        result := true;
+      end;
+
+      lcopOr: begin
+        myValue := leftHand or rightHand;
+        result := true;
+      end;
+
+      lcopXor: begin
+        // This operation cannot be applied to boolean values
+        if not(varIsBool(leftHand)) then
+        begin
+          myValue := leftHand xor rightHand;
+          result := true;
+        end;
+      end;
+
+      lcopShl: begin
+        // This operation cannot be applied to boolean values
+        if not(varIsBool(leftHand)) then
+        begin
+          myValue := leftHand shl rightHand;
+          result := true;
+        end;
+      end;
+
+      lcopShr: begin
+        // This operation cannot be applied to boolean values
+        if not(varIsBool(leftHand)) then
+        begin
+          myValue := leftHand shr rightHand;
+          result := true;
+        end;
+      end;
+    end;
+
+  finally
+    // Do nothing; let the caller handle exceptions
+  end;
+end;
+
+// Perform an equality-test operation
+function ALinearCCompoundExpression.performEqualityTestOperation: boolean;
+
+var
+  // Stores the left-hand operand
+  leftHand: Variant;
+  // Stores the right-hand operand
+  rightHand: Variant;
+
+begin
+  result := false;
+
+  try
+    { myValue is set by Self.parse after the first subexpression is encountered.
+      Since it is the left-hand operand, its type will determine how we handle
+      the various operations.
+    }
+    leftHand := myValue;
+
+    if varIsStr(leftHand) then
+      rightHand := varToStr(ALinearCExpression(CurrentElement).value)
+
+    else if varIsFloat(leftHand) then
+      rightHand := double(ALinearCExpression(CurrentElement).value)
+
+    else if varType(leftHand) in ordinalVarTypes then
+      rightHand := int64(ALinearCExpression(CurrentElement).value)
+
+    else
+      // No other types are supported
+      exit;
+
+    // Perform the operation
+    case myOperation of
+      lcopEquality: begin
+        myValue := leftHand = rightHand;
+        result := true;
+      end;
+
+      lcopInequality: begin
+        myValue := leftHand <> rightHand;
+        result := true;
+      end;
+
+      lcopGreater: begin
+        if varIsStr(leftHand) then
+          myValue := SysUtils.ansiCompareStr(varToStr(leftHand),
+            varToStr(rightHand)) > 0
+
+        else
+          myValue := leftHand > rightHand;
+
+        result := true;
+      end;
+
+      lcopGreaterOrEqual: begin
+        if varIsStr(leftHand) then
+          myValue := SysUtils.ansiCompareStr(varToStr(leftHand),
+            varToStr(rightHand)) >= 0
+
+        else
+          myValue := leftHand >= rightHand;
+
+        result := true;
+      end;
+
+      lcopLesser: begin
+        if varIsStr(leftHand) then
+          myValue := SysUtils.ansiCompareStr(varToStr(leftHand),
+            varToStr(rightHand)) < 0
+
+        else
+          myValue := leftHand < rightHand;
+
+        result := true;
+      end;
+
+      lcopLesserOrEqual: begin
+        if varIsStr(leftHand) then
+          myValue := SysUtils.ansiCompareStr(varToStr(leftHand),
+            varToStr(rightHand)) <= 0
+
+        else
+          myValue := leftHand <= rightHand;
+
+        result := true;
+      end;
+    end;
+
+  finally
+    // Do nothing; let the caller handle exceptions
   end;
 end;
 

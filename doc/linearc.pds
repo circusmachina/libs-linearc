@@ -44,6 +44,7 @@ VizGraphImageFormat=35
 VizGraphDotExecutablePath=dot
 CheckSpelling=0
 LatexGraphicsPackage=0
+ExternalLinksFileName=/home/michael/Projects/libs/externals.ini
 
 [Defines]
 Count=4

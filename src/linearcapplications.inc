@@ -46,9 +46,9 @@ type ALinearCConsoleApplication = class(AConsoleApplication)
     { Print usage information for the program.
 
       This method is called automatically by
-      @link(AnOptionDictionary.handleDirtiedOptions) after all command line
-      options have been parsed, if the @code(--help) option was specified by the
-      user.  The routine simply calls
+      @link(ACommandLineOptionDictionary.handleDirtiedOptions) after all command
+      line options have been parsed, if the @code(--help) option was specified
+      by the user.  The routine simply calls
       @link(ALinearCConsoleApplication.printHelpTo Self.printHelpTo).
 
       @return(This method always returns @false to indicate that the processing
@@ -59,9 +59,9 @@ type ALinearCConsoleApplication = class(AConsoleApplication)
     { Print version information for the program.
 
       This method is called automatically by
-      @link(AnOptionDictionary.handleDirtiedOptions) after all command line
-      options have been parsed, if the @code(--version) option was specified by
-      the user.  The routine simply calls
+      @link(ACommandLineOptionDictionary.handleDirtiedOptions) after all command
+      line options have been parsed, if the @code(--version) option was
+      specified by the user.  The routine simply calls
       @link(ALinearCConsoleApplication.printVersionTo Self.printVersionTo).
 
       @return(This method always returns @false to indicate that the processing
