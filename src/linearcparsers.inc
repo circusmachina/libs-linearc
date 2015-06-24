@@ -174,22 +174,24 @@ end;
 function ALinearCParser.readyToParse: boolean;
 
 begin
+  { Establish the scanner used by the parser.  We do this before calling the
+    inherited routine because the inherited routine checks for a scanner.
+  }
+  if (MyScanner = nil) and (MyParent = nil) then
+    MyScanner :=
+      ASourceScanner.forSource(ATextInputStream(MySource), MyLanguage);
+
   result := inherited readyToParse;
 
   if result then
   begin
-    if MyScanner = nil then
-      { Establish the scanner used by the parser }
-      MyScanner :=
-        ASourceScanner.forSource(ATextInputStream(MySource), MyLanguage);
-
     // Ensure we have a valid list of options
     if (MyOptions = nil) and (MyParent <> nil) then
       if MyParent is ALinearCParser then
         MyOptions := ALinearCParser(MyParent).Options;
 
     // To succeed, we need a scanner and a valid list of options
-    result := (MyScanner <> nil) and (MyOptions <> nil);
+    result := MyOptions <> nil;
   end;
 end;
 
@@ -211,7 +213,10 @@ begin
 
   // Parse the entire command line
   CommandLine := ALinearCStatementBlock.forSource(Self);
-  result := CommandLine.parseUntilToken(TOKCAT_EOS);
+
+  if CommandLine.readyToParse then
+    result := CommandLine.parseUntilToken(TOKCAT_EOS);
+
   freeAndNil(CommandLine);
 end;
 

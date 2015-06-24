@@ -478,7 +478,7 @@ end;
 destructor ALinearCExpression.destroy;
 
 begin
-  // Prevent attempts to free a token list reference that is not ours
+  // Prevent attempts to free references that are not ours
   MyTokens := nil;
 
   inherited destroy;
@@ -495,9 +495,6 @@ var
 
 begin
   result := -1;
-
-  if not(Self.readyToParse) then
-    exit;
 
   Expression := nil;
   unaryOperator := 0;
@@ -562,11 +559,13 @@ begin
   // Parse the expression
   if Expression <> nil then
   begin
-    if Expression is ALinearCCompoundExpression then
-      result := ALinearCCompoundExpression(Expression).parseUntil(RULE_END_EXPRESSION)
+    if Expression.readyToParse then
+      if Expression is ALinearCCompoundExpression then
+        result :=
+          ALinearCCompoundExpression(Expression).parseUntil(RULE_END_EXPRESSION)
 
-    else
-      result := Expression.parse;
+      else
+        result := Expression.parse;
 
     myValue := Expression.value;
     Expression.free;
@@ -626,9 +625,6 @@ function ALinearCBooleanExpression.parse: int64;
 begin
   result := -1;
 
-  if not(Self.readyToParse) then
-    exit;
-
   if CurrentToken = nil then
     exit;
 
@@ -661,11 +657,6 @@ end;
 function ALinearCIdentifierExpression.parse: int64;
 
 begin
-  result := -1;
-
-  if not(Self.readyToParse) then
-    exit;
-
   result := 0;
 
   // Look up the value
@@ -702,9 +693,6 @@ var
 
 begin
   result := -1;
-
-  if not(Self.readyToParse) then
-    exit;
 
   { Whitespace is important }
   scannerBehavior := MyScanner.tokenBehaviors;
@@ -828,11 +816,6 @@ var
   scannerBehavior: TScannerTokenBehaviors;
 
 begin
-  result := -1;
-
-  if not(Self.readyToParse) then
-    exit;
-
   { Whitespace is important }
   scannerBehavior := MyScanner.tokenBehaviors;
   MyScanner.setTokenBehaviors(scannerBehavior -
@@ -876,10 +859,7 @@ end;
 function ALinearCNumericExpression.parse: int64;
 
 begin
-  result := -1;
-
-  if not(Self.readyToParse) then
-    exit;
+  result := 0;
 
   // Check that the current token is a valid number
   if (CurrentToken is ANumericConstantToken) and
@@ -906,12 +886,8 @@ var
   MyCurrentExpression: ALinearCExpression;
 
 begin
-  result := -1;
-
-  if not(Self.readyToParse) then
-    exit;
-
   MyPreviousExpression := ALinearCExpression(Self.PreviousElement);
+  MyCurrentExpression := ALinearCExpression(Self.CurrentElement);
 
   { When we get here, the current token should be either an operator or an
     expression
@@ -923,14 +899,15 @@ begin
     begin
       // Keep the previous element from attempting to free everything
       MyPreviousExpression.detach;
-      MyPreviousExpression.free;
+      SysUtils.freeAndNil(MyPreviousExpression);
     end;
 
-    MyPreviousExpression := ALinearCExpression(Self.CurrentElement);
+    MyPreviousExpression := MyCurrentExpression;
 
     // Parse the expression
     MyCurrentExpression := ALinearCExpression.forSource(Self);
-    MyCurrentExpression.parse;
+    if MyCurrentExpression.readyToParse then
+      MyCurrentExpression.parse;
 
     { If this is the first subexpression encountered, then set our value, since
       it is valid for a compound expression to consist solely of a single
@@ -940,7 +917,15 @@ begin
       myValue := MyCurrentExpression.value;
   end;
 
-  { Check for an operator }
+  // If we have an operator and two subexpressions, then perform the operation
+  if (MyPreviousExpression <> nil) and (MyCurrentExpression <> nil) and
+    (myOperation <> 0) then
+  begin
+    result := Self.performOperation;
+    myOperation := 0;
+  end;
+
+  { Check for another operator }
   if ATokenFromSource(CurrentToken).isPartOf(RULE_OPERATOR) then
     // Store the operation
     myOperation := CurrentToken.opcode
@@ -951,11 +936,6 @@ begin
       syntaxError(lcxpErrorValidExpressionExpected, [
         PreviousToken.toString, CurrentToken.toString
       ]);
-
-  // If we have an operator and two subexpressions, then perform the operation
-  if (MyPreviousExpression <> nil) and (MyCurrentExpression <> nil) and
-    (myOperation <> 0) then
-    result := Self.performOperation;
 
   result := Self.Log.Counter(lgerCounterName).value;
 

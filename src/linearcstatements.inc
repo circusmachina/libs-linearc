@@ -24,7 +24,10 @@
   not implement @link(AParser.parse AStatement.parse); instead one of its
   descendants will be constructed.
 }
-type ALinearCStatement = class(ALinearCParser);
+type ALinearCStatement = class(ALinearCParser)
+  public
+    destructor destroy; override;
+end;
 
 // ALinearCAssignmentStatement *************************************************
 { This class represents an assignment statement in LinearC; that is, the portion
@@ -120,6 +123,20 @@ end;
   lcstWarningUnknownOption = 'ignoring unknown option %s';
 {$ENDIF}
 {$IFDEF ReadImplementation}
+// ALinearCStatement ***********************************************************
+// Destructor
+destructor ALinearCStatement.destroy;
+
+begin
+  // Prevent attempts to free references that are not ours
+  MySource := nil;
+  MyLog := nil;
+  MyScanner := nil;
+  MyLanguage := nil;
+  MyOptions := nil;
+
+  inherited destroy;
+end;
 // ALinearCAssignmentStatement *************************************************
 // Handle special cases
 function ALinearCAssignmentStatement.parseSpecialCase: int64;
@@ -147,7 +164,10 @@ begin
             Self.NextToken;
 
           RemainingArgument := ALinearCRestArgument.forSource(Self);
-          result := RemainingArgument.parseUntilToken(TOKCAT_EOS);
+
+          if RemainingArgument.readyToParse then
+            result := RemainingArgument.parseUntilToken(TOKCAT_EOS);
+
           RemainingArgument.free;
         end
 
@@ -162,7 +182,10 @@ begin
       begin
         // Parse the argument
         RemainingArgument := ALinearCRestArgument.forSource(Self);
-        result := RemainingArgument.parse;
+
+        if RemainingArgument.readyToParse then
+          result := RemainingArgument.parse;
+
         RemainingArgument.free;
       end;
     end;
@@ -180,11 +203,6 @@ var
   ThisOption: ACommandLineOption;
 
 begin
-  result := -1;
-
-  if not(Self.readyToParse) then
-    exit;
-
   result := 0;
 
   // The next token should contain the name of the option to set...
@@ -219,7 +237,10 @@ begin
       option
     }
     Expression := ALinearCCompoundExpression.forSource(Self);
-    result := Expression.parseUntil(RULE_END_EXPRESSION);
+
+    if Expression.readyToParse then
+      result := Expression.parseUntil(RULE_END_EXPRESSION);
+
     Self.resyncTo(RULE_END_EXPRESSION);
 
     if ThisOption <> nil then
@@ -271,11 +292,6 @@ var
   ThisOption: ACommandLineOption;
 
 begin
-  result := -1;
-
-  if not(Self.readyToParse) then
-    exit;
-
   // Ensure we have a valid token list
   CurrentToken;
 
@@ -283,7 +299,10 @@ begin
     option
   }
   Expression := ALinearCCompoundExpression.forSource(Self);
-  result := Expression.parseUntil(RULE_END_EXPRESSION);
+
+  if Expression.readyToParse then
+    result := Expression.parseUntil(RULE_END_EXPRESSION);
+
   Self.resyncTo(RULE_END_EXPRESSION);
 
   { Find a rest argument to which the value can be assigned }
@@ -327,11 +346,6 @@ var
   Statement: ALinearCStatement;
 
 begin
-  result := -1;
-
-  if not(Self.readyToParse) then
-    exit;
-
   result := 0;
 
   Statement := nil;
@@ -359,7 +373,9 @@ begin
 
   if Statement <> nil then
   begin
-    result := result + Statement.parse;
+    if Statement.readyToParse then
+      result := result + Statement.parse;
+
     freeAndNil(Statement);
     Self.resyncTo(RULE_END_STATEMENT);
   end;
