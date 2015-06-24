@@ -20,7 +20,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <RevisionNr Value="5"/>
-      <BuildNr Value="119"/>
+      <BuildNr Value="120"/>
       <StringTable Comments="This is free software, distributed under the terms of the GNU GPL.  There is NO WARRANTY; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE." LegalCopyright="Copyright (C) 2015 Michael Malicoat.  All rights reserved." ProductName="testlinearc" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="1">
