@@ -3,7 +3,7 @@
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="101">
+    <Units Count="102">
       <Unit0>
         <Filename Value="testlinearc.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -11,8 +11,8 @@
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="82"/>
-        <CursorPos X="47" Y="94"/>
-        <UsageCount Value="93"/>
+        <CursorPos X="46" Y="102"/>
+        <UsageCount Value="97"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -22,17 +22,17 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="27" Y="13"/>
-        <UsageCount Value="32"/>
+        <UsageCount Value="36"/>
       </Unit1>
       <Unit2>
         <Filename Value="../../../parse/src/parsing.pp"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="parsing"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="35"/>
-        <CursorPos X="54" Y="49"/>
-        <UsageCount Value="32"/>
+        <CursorPos X="10" Y="60"/>
+        <UsageCount Value="36"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -43,7 +43,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="23"/>
         <CursorPos X="41" Y="42"/>
-        <UsageCount Value="32"/>
+        <UsageCount Value="36"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -617,55 +617,53 @@
         <Filename Value="../../src/linearcparsers.inc"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="152"/>
+        <TopLine Value="9"/>
         <CursorPos X="51" Y="186"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="18"/>
         <Loaded Value="True"/>
       </Unit84>
       <Unit85>
         <Filename Value="../../src/linearcstatements.inc"/>
-        <EditorIndex Value="5"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="126"/>
-        <CursorPos X="30" Y="139"/>
-        <UsageCount Value="16"/>
+        <TopLine Value="217"/>
+        <CursorPos X="79" Y="306"/>
+        <UsageCount Value="18"/>
         <Loaded Value="True"/>
       </Unit85>
       <Unit86>
         <Filename Value="../../../parse/src/parsers.inc"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="581"/>
-        <CursorPos X="43" Y="598"/>
-        <UsageCount Value="15"/>
-        <Loaded Value="True"/>
+        <TopLine Value="1039"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="16"/>
       </Unit86>
       <Unit87>
         <Filename Value="../../src/linearcexpressions.inc"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="943"/>
-        <CursorPos X="1" Y="959"/>
-        <UsageCount Value="16"/>
+        <TopLine Value="935"/>
+        <CursorPos X="63" Y="949"/>
+        <UsageCount Value="18"/>
         <Loaded Value="True"/>
       </Unit87>
       <Unit88>
         <Filename Value="../../src/linearctokenstrings.inc"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="181"/>
         <CursorPos X="42" Y="192"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="18"/>
         <Loaded Value="True"/>
       </Unit88>
       <Unit89>
         <Filename Value="../../src/linearc.inc"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="310"/>
-        <CursorPos X="56" Y="326"/>
-        <UsageCount Value="16"/>
+        <TopLine Value="331"/>
+        <CursorPos X="41" Y="92"/>
+        <UsageCount Value="18"/>
         <Loaded Value="True"/>
       </Unit89>
       <Unit90>
@@ -677,12 +675,10 @@
       </Unit90>
       <Unit91>
         <Filename Value="../../../parse/src/parsedlanguageparsers.inc"/>
-        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="182"/>
+        <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="12"/>
-        <Loaded Value="True"/>
       </Unit91>
       <Unit92>
         <Filename Value="../../../parse/src/symbolparsers.inc"/>
@@ -742,139 +738,153 @@
       </Unit99>
       <Unit100>
         <Filename Value="../../../parse/src/sourcescanners.inc"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="99"/>
         <CursorPos X="63" Y="114"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="11"/>
       </Unit100>
+      <Unit101>
+        <Filename Value="../../src/linearcapplications.inc"/>
+        <EditorIndex Value="8"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="319"/>
+        <CursorPos X="56" Y="334"/>
+        <UsageCount Value="12"/>
+        <Loaded Value="True"/>
+      </Unit101>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="../../src/linearcexpressions.inc"/>
-        <Caret Line="1028" Column="1" TopLine="1000"/>
+        <Caret Line="900" Column="1" TopLine="872"/>
       </Position1>
       <Position2>
         <Filename Value="../../src/linearcexpressions.inc"/>
-        <Caret Line="1031" Column="1" TopLine="1003"/>
+        <Caret Line="901" Column="1" TopLine="873"/>
       </Position2>
       <Position3>
         <Filename Value="../../src/linearcexpressions.inc"/>
-        <Caret Line="1034" Column="1" TopLine="1006"/>
+        <Caret Line="904" Column="1" TopLine="876"/>
       </Position3>
       <Position4>
         <Filename Value="../../src/linearcexpressions.inc"/>
-        <Caret Line="1032" Column="1" TopLine="1006"/>
+        <Caret Line="907" Column="1" TopLine="879"/>
       </Position4>
       <Position5>
         <Filename Value="../../src/linearcexpressions.inc"/>
-        <Caret Line="1034" Column="1" TopLine="1006"/>
+        <Caret Line="908" Column="1" TopLine="880"/>
       </Position5>
       <Position6>
         <Filename Value="../../src/linearcexpressions.inc"/>
-        <Caret Line="1032" Column="1" TopLine="1006"/>
+        <Caret Line="991" Column="9" TopLine="965"/>
       </Position6>
       <Position7>
         <Filename Value="../../src/linearcexpressions.inc"/>
-        <Caret Line="1039" Column="1" TopLine="1012"/>
+        <Caret Line="512" Column="8" TopLine="495"/>
       </Position7>
       <Position8>
-        <Filename Value="../../src/linearcexpressions.inc"/>
-        <Caret Line="1041" Column="1" TopLine="1013"/>
+        <Filename Value="../../src/linearc.pp"/>
+        <Caret Line="40" Column="3" TopLine="22"/>
       </Position8>
       <Position9>
         <Filename Value="../../src/linearcexpressions.inc"/>
-        <Caret Line="1042" Column="1" TopLine="1014"/>
+        <Caret Line="523" Column="41" TopLine="506"/>
       </Position9>
       <Position10>
-        <Filename Value="../../src/linearcexpressions.inc"/>
-        <Caret Line="1131" Column="1" TopLine="1114"/>
+        <Filename Value="../../../parse/src/parsing.pp"/>
+        <Caret Line="61" Column="18" TopLine="35"/>
       </Position10>
       <Position11>
         <Filename Value="../../src/linearcexpressions.inc"/>
-        <Caret Line="978" Column="1" TopLine="961"/>
+        <Caret Line="993" Column="9" TopLine="974"/>
       </Position11>
       <Position12>
         <Filename Value="../../src/linearcexpressions.inc"/>
-        <Caret Line="1004" Column="1" TopLine="987"/>
+        <Caret Line="967" Column="25" TopLine="948"/>
       </Position12>
       <Position13>
         <Filename Value="../../src/linearcexpressions.inc"/>
-        <Caret Line="889" Column="1" TopLine="871"/>
+        <Caret Line="492" Column="21" TopLine="476"/>
       </Position13>
       <Position14>
         <Filename Value="../../src/linearcexpressions.inc"/>
-        <Caret Line="894" Column="1" TopLine="871"/>
+        <Caret Line="957" Column="60" TopLine="930"/>
       </Position14>
       <Position15>
-        <Filename Value="../../src/linearcexpressions.inc"/>
-        <Caret Line="897" Column="1" TopLine="871"/>
+        <Filename Value="../../src/linearcapplications.inc"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position15>
       <Position16>
-        <Filename Value="../../src/linearcexpressions.inc"/>
-        <Caret Line="900" Column="1" TopLine="872"/>
+        <Filename Value="../../src/linearcapplications.inc"/>
+        <Caret Line="344" Column="26" TopLine="323"/>
       </Position16>
       <Position17>
         <Filename Value="../../src/linearcexpressions.inc"/>
-        <Caret Line="901" Column="1" TopLine="873"/>
+        <Caret Line="934" Column="36" TopLine="917"/>
       </Position17>
       <Position18>
         <Filename Value="../../src/linearcexpressions.inc"/>
-        <Caret Line="904" Column="1" TopLine="876"/>
+        <Caret Line="941" Column="1" TopLine="917"/>
       </Position18>
       <Position19>
         <Filename Value="../../src/linearcexpressions.inc"/>
-        <Caret Line="907" Column="1" TopLine="879"/>
+        <Caret Line="942" Column="1" TopLine="917"/>
       </Position19>
       <Position20>
         <Filename Value="../../src/linearcexpressions.inc"/>
-        <Caret Line="908" Column="1" TopLine="880"/>
+        <Caret Line="945" Column="1" TopLine="926"/>
       </Position20>
       <Position21>
         <Filename Value="../../src/linearcexpressions.inc"/>
-        <Caret Line="991" Column="9" TopLine="965"/>
+        <Caret Line="950" Column="1" TopLine="926"/>
       </Position21>
       <Position22>
         <Filename Value="../../src/linearcexpressions.inc"/>
-        <Caret Line="512" Column="8" TopLine="495"/>
+        <Caret Line="953" Column="1" TopLine="926"/>
       </Position22>
       <Position23>
-        <Filename Value="../../src/linearc.pp"/>
-        <Caret Line="40" Column="3" TopLine="22"/>
+        <Filename Value="../../src/linearcexpressions.inc"/>
+        <Caret Line="951" Column="15" TopLine="932"/>
       </Position23>
       <Position24>
         <Filename Value="../../src/linearcexpressions.inc"/>
-        <Caret Line="523" Column="41" TopLine="506"/>
+        <Caret Line="947" Column="1" TopLine="932"/>
       </Position24>
       <Position25>
-        <Filename Value="../../../parse/src/parsing.pp"/>
-        <Caret Line="61" Column="18" TopLine="35"/>
+        <Filename Value="../../src/linearcexpressions.inc"/>
+        <Caret Line="955" Column="1" TopLine="932"/>
       </Position25>
       <Position26>
         <Filename Value="../../src/linearcexpressions.inc"/>
-        <Caret Line="993" Column="9" TopLine="974"/>
+        <Caret Line="958" Column="1" TopLine="932"/>
       </Position26>
       <Position27>
         <Filename Value="../../src/linearcexpressions.inc"/>
-        <Caret Line="967" Column="25" TopLine="948"/>
+        <Caret Line="959" Column="1" TopLine="932"/>
       </Position27>
       <Position28>
-        <Filename Value="../../src/linearcexpressions.inc"/>
-        <Caret Line="492" Column="21" TopLine="476"/>
+        <Filename Value="../../../parse/src/parsing.pp"/>
+        <Caret Line="60" Column="10" TopLine="35"/>
       </Position28>
       <Position29>
-        <Filename Value="../../../parse/src/parsers.inc"/>
-        <Caret Line="769" Column="16" TopLine="745"/>
+        <Filename Value="../../src/linearc.inc"/>
+        <Caret Line="381" Column="16" TopLine="360"/>
       </Position29>
-      <Position30>
-        <Filename Value="../../src/linearcexpressions.inc"/>
-        <Caret Line="957" Column="60" TopLine="930"/>
-      </Position30>
     </JumpHistory>
   </ProjectSession>
+  <Debugging>
+    <BreakPoints Count="1">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="../../src/linearcexpressions.inc"/>
+        <Line Value="1310"/>
+      </Item1>
+    </BreakPoints>
+  </Debugging>
   <EditorMacros Count="0"/>
 </CONFIG>

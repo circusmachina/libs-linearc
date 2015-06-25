@@ -228,11 +228,32 @@ type ALinearCCompoundExpression = class(ALinearCExpression)
 
   public
     { Parse the expression.
+    
+      This method assembles the values represented by each subexpression within
+      its scope and, for each pair of expressions, performs an operation on 
+      them.  The resulting value is stored as the compound expression's
+      @link(ALinearCExpression.value value).
+      
+      The subexpressions are parsed by constructing an instance of
+      @link(ALinearCExpression) and calling its
+      @link(ALinearCExpression.parse parse method).
 
-      This method simply constructs an instance of ALinearCExpression and
-      calls @link(ALinearCExpression.parse) on it.
+      This method is not typically called directly; instead, it is called from
+      one of the @code(parseUntil()) methods, such as
+      @link(AParser.parseUntilToken ALinearCCompoundExpression.parseUntilToken).  
+      This is because the class represents a collection of expressions which is 
+      made up of one or more individual expressions.  
     }
     function parse: int64; override;
+
+    { Parse a subexpression.
+
+      This method is called automatically by
+      @link(ALinearCCompoundExpression.parse).  It checks to ensure that the
+      current token represents a valid expression beginning, then creates an
+      instance of @link(ALinearCExpression) to parse the expression.
+    }
+    function parseSubexpression: int64; virtual;
 
     { Perform the operation indicated by the
       @link(ALinearCCompoundExpression.operation).  This method is called by
@@ -366,6 +387,24 @@ type ALinearCCompoundExpression = class(ALinearCExpression)
     function performEqualityTestOperation: boolean; virtual;
 
     // Properties --------------------------------------------------------------
+    { Retrieve a reference to the previous expression parsed by the compound
+      expression.
+
+      This method simply casts the return value of
+      @link(AParser.PreviousElement Self.PreviousElement) as an instance of
+      @link(ALinearCExpression).
+    }
+    function PreviousExpression: ALinearCExpression; virtual;
+
+    { Retrieve a reference to the current expression parsed by the compound
+      expression.
+
+      This method simply casts the return value of
+      @link(AParser.CurrentElement Self.CurrentElement) as an instance of
+      @link(ALinearCExpression).
+    }
+    function CurrentExpression: ALinearCExpression; virtual;
+
     { Retrieve the operator encountered while parsing the compound expression,
       if any.
 
@@ -666,6 +705,7 @@ begin
   else
     myValue := ATokenFromSource(CurrentToken).text;
 
+  // Skip the identifier
   NextToken;
 end;
 
@@ -879,59 +919,63 @@ end;
 // Parse the compound expression
 function ALinearCCompoundExpression.parse: int64;
 
-var
-  // Refers to the previous expression that was parsed
-  MyPreviousExpression: ALinearCExpression;
-  // Refers to the current expression being parsed
-  MyCurrentExpression: ALinearCExpression;
-
 begin
-  MyPreviousExpression := ALinearCExpression(Self.PreviousElement);
-  MyCurrentExpression := ALinearCExpression(Self.CurrentElement);
+  // Skip the opening paren, if any
+  if CurrentToken.opcode = lcdlLeftParen then
+    NextToken;
 
-  { When we get here, the current token should be either an operator or an
-    expression
-  }
+  // Parse the first (or only) subexpression
+  result := Self.parseSubexpression;
+
+  if result <> 0 then
+    exit;
+
+  { Skip spaces between one expression and the next. }
+  if CurrentToken.opcode = TOKCAT_SPACE then
+    NextToken;
+
+  { Check for an operator }
+  if ATokenFromSource(CurrentToken).isPartOf(RULE_OPERATOR) then
+  begin
+    // Store the operation
+    myOperation := CurrentToken.opcode;
+    NextToken;
+
+    { Skip spaces between the operator and the next subexpression}
+    if CurrentToken.opcode = TOKCAT_SPACE then
+      NextToken;
+  end;
+
+  { Check for and parse a valid secondary expression }
   if ATokenFromSource(CurrentToken).isPartOf(RULE_BEGIN_EXPRESSION) then
   begin
-    // Swap expressions
-    if MyPreviousExpression <> nil then
+    inc(result, Self.parseSubexpression);
+
+    if result <> 0 then
+      exit;
+
+    // Perform the operation
+    if (CurrentExpression <> nil) and (PreviousExpression <> nil) and
+      (myOperation <> 0) then
     begin
-      // Keep the previous element from attempting to free everything
-      MyPreviousExpression.detach;
-      SysUtils.freeAndNil(MyPreviousExpression);
-    end;
+      Self.performOperation;
+      myOperation := 0;
+    end
 
-    MyPreviousExpression := MyCurrentExpression;
+    else
+      syntaxError(lcxpErrorValidExpressionExpected, [
+        PreviousToken.toString, CurrentToken.toString
+      ]);
+  end
 
-    // Parse the expression
-    MyCurrentExpression := ALinearCExpression.forSource(Self);
-    if MyCurrentExpression.readyToParse then
-      MyCurrentExpression.parse;
-
-    { If this is the first subexpression encountered, then set our value, since
-      it is valid for a compound expression to consist solely of a single
-      subexpression.
-    }
-    if MyPreviousExpression = nil then
-      myValue := MyCurrentExpression.value;
-  end;
-
-  // If we have an operator and two subexpressions, then perform the operation
-  if (MyPreviousExpression <> nil) and (MyCurrentExpression <> nil) and
-    (myOperation <> 0) then
-  begin
-    result := Self.performOperation;
-    myOperation := 0;
-  end;
-
-  { Check for another operator }
-  if ATokenFromSource(CurrentToken).isPartOf(RULE_OPERATOR) then
-    // Store the operation
-    myOperation := CurrentToken.opcode
+  { If the previous token was a space, then we reached the end of the
+    expression
+  }
+  else if PreviousToken.opcode = TOKCAT_SPACE then
+    Self.rewind;
 
   { Check for a valid end of expression }
-  else if ATokenFromSource(CurrentToken).isPartOf(RULE_END_EXPRESSION) = false
+  if (ATokenFromSource(CurrentToken).isPartOf(RULE_END_EXPRESSION) = false)
     then
       syntaxError(lcxpErrorValidExpressionExpected, [
         PreviousToken.toString, CurrentToken.toString
@@ -939,9 +983,52 @@ begin
 
   result := Self.Log.Counter(lgerCounterName).value;
 
-  { We don't move to the next token here because the 'parseUntil' loop that
-    calls this routine will do so.
+  // Skip the closing paren, if any
+  if CurrentToken.opcode = lcdlRightParen then
+    NextToken;
+end;
+
+// Parse a subexpression
+function ALinearCCompoundExpression.parseSubexpression: int64;
+
+var
+  // Refers to the subexpression
+  Subexpression: ALinearCExpression;
+
+begin
+  { When we get here, the current token should be either an operator or an
+    expression
   }
+  if ATokenFromSource(CurrentToken).isPartOf(RULE_BEGIN_EXPRESSION) then
+  begin
+    // Swap expressions
+    if PreviousExpression <> nil then
+    begin
+      // Keep the previous element from attempting to free everything
+      PreviousExpression.detach;
+      PreviousExpression.free;
+    end;
+
+    // Parse the expression
+    Subexpression := ALinearCExpression.forSource(Self);
+    if Subexpression.readyToParse then
+      result := Subexpression.parse;
+
+    { If this is the first subexpression encountered, then set our value, since
+      it is valid for a compound expression to consist solely of a single
+      subexpression.
+    }
+    if PreviousExpression = nil then
+      myValue := Subexpression.value;
+  end
+
+  // Not the beginning of an expression
+  else
+    syntaxError(lcxpErrorValidExpressionExpected, [
+      PreviousToken.toString, CurrentToken.toString
+    ]);
+
+  result := Self.Log.Counter(lgerCounterName).value;
 end;
 
 // Perform the operation
@@ -953,7 +1040,9 @@ var
 
 begin
   result := -1;
-  if (PreviousElement = nil) or (CurrentElement = nil) or (myOperation = 0) then
+  if (CurrentExpression = nil) or (PreviousExpression = nil) or
+    (myOperation = 0)
+    then
     exit;
 
   operationSucceeded := false;
@@ -982,7 +1071,7 @@ begin
     if operationSucceeded = false then
     begin
       syntaxError(lccxErrorInvalidOperation, [
-        PreviousElement.toString, CurrentElement.toString
+        PreviousExpression.toString, CurrentExpression.toString
       ]);
 
       inc(result);
@@ -997,7 +1086,7 @@ begin
     on E: EVariantTypecastError do
     begin
       syntaxError(lccxErrorInvalidOperation, [
-        PreviousElement.toString, CurrentElement.toString
+        PreviousExpression.toString, CurrentExpression.toString
       ]);
 
       inc(result);
@@ -1027,13 +1116,14 @@ begin
     leftHand := myValue;
 
     if varIsStr(leftHand) then
-      rightHand := varToStr(ALinearCExpression(CurrentElement).value)
+      rightHand := varToStr(CurrentExpression.value)
 
     else if varIsFloat(leftHand) then
-      rightHand := double(ALinearCExpression(CurrentElement).value)
+      rightHand := double(CurrentExpression.value)
 
     else if varType(leftHand) in ordinalVarTypes then
-      rightHand := int64(ALinearCExpression(CurrentElement).value)
+      rightHand := Variants.varAsType(CurrentExpression.value,
+        varType(leftHand))
 
     else
       // No other types are supported
@@ -1154,10 +1244,10 @@ begin
     leftHand := myValue;
 
     if varIsBool(leftHand) then
-      rightHand := boolean(ALinearCExpression(CurrentElement).value)
+      rightHand := boolean(CurrentExpression.value)
 
     else if varType(leftHand) in ordinalVarTypes then
-      rightHand := int64(ALinearCExpression(CurrentElement).value)
+      rightHand := int64(CurrentExpression.value)
 
     else
       // These operation cannot be applied to any other type
@@ -1227,14 +1317,17 @@ begin
     }
     leftHand := myValue;
 
-    if varIsStr(leftHand) then
-      rightHand := varToStr(ALinearCExpression(CurrentElement).value)
+    if varIsBool(leftHand) then
+      rightHand := boolean(CurrentExpression.value)
+
+    else if varIsStr(leftHand) then
+      rightHand := varToStr(CurrentExpression.value)
 
     else if varIsFloat(leftHand) then
-      rightHand := double(ALinearCExpression(CurrentElement).value)
+      rightHand := double(CurrentExpression.value)
 
     else if varType(leftHand) in ordinalVarTypes then
-      rightHand := int64(ALinearCExpression(CurrentElement).value)
+      rightHand := int64(CurrentExpression.value)
 
     else
       // No other types are supported
@@ -1303,6 +1396,20 @@ begin
 end;
 
 // Properties ------------------------------------------------------------------
+// Retrieve the previous expression parsed by the compound expression
+function ALinearCCompoundExpression.PreviousExpression: ALinearCExpression;
+
+begin
+  Result := ALinearCExpression(Self.PreviousElement);
+end;
+
+// Retrieve the most recent expression parsed by the compound expression
+function ALinearCCompoundExpression.CurrentExpression: ALinearCExpression;
+
+begin
+  Result := ALinearCExpression(Self.CurrentElement);
+end;
+
 // Retrieve the operator used
 function ALinearCCompoundExpression.operation: TOpcode;
 

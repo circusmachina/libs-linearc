@@ -102,7 +102,7 @@ begin
         if not(ThisOption is ACommandLineAbbreviation) then
         begin
           if ovtList in ACommandLineOption(ThisOption).optionType then
-            writeln(#9, ThisOption.name, '=', ACommandLineList(ThisOption).Values.implode)
+            writeln(#9, ThisOption.name, '=[', ACommandLineList(ThisOption).Values.implode, ']')
 
           else
             writeln(#9, ThisOption.toString);

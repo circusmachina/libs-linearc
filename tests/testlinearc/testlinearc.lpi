@@ -20,7 +20,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <RevisionNr Value="6"/>
-      <BuildNr Value="82"/>
+      <BuildNr Value="111"/>
       <StringTable Comments="This is free software, distributed under the terms of the GNU GPL.  There is NO WARRANTY; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE." LegalCopyright="Copyright (C) 2015 Michael Malicoat.  All rights reserved." ProductName="testlinearc" ProductVersion=""/>
     </VersionInfo>
     <BuildModes Count="1">
@@ -32,7 +32,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="&quot;--pitch=38 --thrust=(10+5+5) somefile&quot;"/>
+        <CommandLineParams Value="&quot;--thrust=(50 MOD 5)&quot;"/>
       </local>
     </RunParams>
     <RequiredPackages Count="1">

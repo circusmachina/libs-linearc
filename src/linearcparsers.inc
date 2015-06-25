@@ -67,9 +67,12 @@ type ALinearCParser = class(AParsedLanguageParser)
       @code(ThisLog).
 
       This method constructs a new instance of @link(ATextInputStream) around
-      @code(ThisSource).
+      @code(ThisSource).  That instance will be freed when the parser is freed.
+      @code(takeOwnershipOfSource) is passed to 
+      @link(AStreamWrapper.around ATextInputStream.around).
     }
     constructor forSource(const ThisSource: AStream;
+      const takeOwnershipOfSource: boolean;
       const TheseOptions: ACommandLineOptionDictionary;
       const ThisLog: ALog); overload; virtual;
 
@@ -120,18 +123,15 @@ end;
 {$IFDEF ReadImplementation}
 // Constructor
 constructor ALinearCParser.forSource(const ThisSource: AStream;
+  const takeOwnershipOfSource: boolean;
   const TheseOptions: ACommandLineOptionDictionary;
   const ThisLog: ALog);
 
 begin
-  inherited forSource(ATextInputStream.around(ThisSource, false), ThisLog);
+  inherited forSource(ATextInputStream.around(ThisSource, takeOwnershipOfSource),
+    ThisLog);
 
   MyOptions := TheseOptions;
-
-  { Establish the language specification used by the parser.  This
-    specification is freed automatically by AParsedLanguageParser.destroy.
-  }
-  MyLanguage := TheLinearCLanguage.new;
 end;
 
 // Constructor
@@ -174,13 +174,24 @@ end;
 function ALinearCParser.readyToParse: boolean;
 
 begin
-  { Establish the scanner used by the parser.  We do this before calling the
-    inherited routine because the inherited routine checks for a scanner.
-  }
-  if (MyScanner = nil) and (MyParent = nil) then
-    MyScanner :=
-      ASourceScanner.forSource(ATextInputStream(MySource), MyLanguage);
-
+  if MyParent = nil then
+  begin
+    { Establish the language specification used by the parser.  This
+      specification is freed automatically by AParsedLanguageParser.destroy.  We
+      do this before calling the inherited routine because the inherited routine
+      checks for a language.
+    }
+    if MyLanguage = nil then
+      MyLanguage := TheLinearCLanguage.new;
+      
+    { Establish the scanner used by the parser.  We do this before calling the
+      inherited routine because the inherited routine checks for a scanner.
+    }
+    if MyScanner = nil then
+      MyScanner :=
+        ASourceScanner.forSource(ATextInputStream(MySource), MyLanguage);
+  end;
+  
   result := inherited readyToParse;
 
   if result then

@@ -335,8 +335,8 @@ begin
   OptionsStream.setPosition(0);
 
   // Parse the options
-  CommandLine := ALinearCParser.forSource(OptionsStream.Target, MyOptions,
-    MyLog);
+  CommandLine := ALinearCParser.forSource(OptionsStream.Target, false,
+    MyOptions, MyLog);
   result := CommandLine.parse;
 
   CommandLine.free;

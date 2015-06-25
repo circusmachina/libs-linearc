@@ -89,10 +89,16 @@ const
 
   { This constant represents one of the rules defined by
     @link(TheLinearCLanguage.defineRules); in this case, the tokens that are
+    allowed to begin a simple expression.
+  }
+  RULE_BEGIN_SIMPLE_EXPRESSION = RULE_END_EXPRESSION + 1;
+
+  { This constant represents one of the rules defined by
+    @link(TheLinearCLanguage.defineRules); in this case, the tokens that are
     allowed to represent a @true value when setting
     @link(ACommandLineSwitch switch options).
   }
-  RULE_TRUTH            = RULE_END_EXPRESSION + 1;
+  RULE_TRUTH            = RULE_BEGIN_SIMPLE_EXPRESSION + 1;
 
   { This constant represents one of the rules defined by
     @link(TheLinearCLanguage.defineRules); in this case, the tokens that are
@@ -328,7 +334,12 @@ begin
 
   // Define the tokens which may begin an expression
   MySyntaxRules.addNewRule(RULE_BEGIN_EXPRESSION, [
-    TOKCAT_IDENTIFIER, TOKCAT_NUMBER, lcdlLeftParen,
+    lcdlLeftParen, RULE_BEGIN_SIMPLE_EXPRESSION
+  ]);
+
+  // Define the tokens which may begin a simple expression
+  MySyntaxRules.addNewRule(RULE_BEGIN_SIMPLE_EXPRESSION, [
+    TOKCAT_IDENTIFIER, TOKCAT_NUMBER,
     RULE_UNARY_OPERATORS, RULE_DELIMIT_STRING,
     RULE_TRUTH, RULE_FALSEHOOD, RULE_BEGIN_PATH
   ]);
@@ -356,7 +367,8 @@ begin
   // Define the tokens that may be operators
   MySyntaxRules.addNewRule(RULE_OPERATOR, [
     lcopPlus, lcopMinus, lcopTimes, lcopDivide, lcopModulo, lcopExponent,
-    lcopShl, lcopShr, lcopAnd, lcopOr
+    lcopShl, lcopShr, lcopAnd, lcopOr, lcopXor, lcopGreater, lcopGreaterOrEqual,
+    lcopLesser, lcopLesserOrEqual, lcopEquality, lcopInequality
   ]);
 
   // Define the tokens that may delimit strings
@@ -376,7 +388,8 @@ begin
 
   // Define the tokens that may be used as arithmetic operators
   MySyntaxRules.addNewRule(RULE_ARITHMETIC_OPERATORS, [
-    lcopPlus, lcopMinus, lcopTimes, lcopDivide, lcopExponent
+    lcopPlus, lcopMinus, lcopTimes, lcopDivide, lcopExponent,
+    lcopModulo
   ]);
 
   // Define the tokens that may be used as bitwise operators

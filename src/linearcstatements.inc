@@ -20,12 +20,18 @@
 {$IFDEF ReadInterface}
 // ALinearCStatement ***********************************************************
 { This class represents a single statement that is pared by the LinearC parser.
-  It is unlikely that this class will be instantiated directly, since it does
-  not implement @link(AParser.parse AStatement.parse); instead one of its
-  descendants will be constructed.
+  It is unlikely that you will create a direct instance of this class, since it
+  provides no parsing functionality.  Its purpose is to prevent its descendants
+  from attempting to free references they have borrowed from the parent parser.
 }
 type ALinearCStatement = class(ALinearCParser)
   public
+    { Destroy the statement.
+
+      This method sets the various references borrowed from the parent parser
+      to @nil so that attempts are not made to free references which are not
+      owned by the instance.  The method then calls the inherited destructor.
+    }   
     destructor destroy; override;
 end;
 
@@ -106,6 +112,12 @@ type ALinearCStatementBlock = class(ALinearCStatement)
           @link(TOKCAT_IDENTIFIER) or when the current token is allowed by
           @link(RULE_DELIMIT_STRING) or @link(RULE_BEGIN_PATH).)
       )
+      
+      This method is not typically called directly; instead, it is called from
+      one of the @code(parseUntil()) methods, such as
+      @link(AParser.parseUntilToken ALinearCStatementBlock.parseUntilToken).  
+      This is because the class represents a collection of statements which is 
+      made up of one or more individual statements.     
 
       @return(The number of errors encountered while parsing.)
     }
@@ -236,10 +248,10 @@ begin
     { Parse the expression, the value of which will be assigned to the named
       option
     }
-    Expression := ALinearCCompoundExpression.forSource(Self);
+    Expression := ALinearCExpression.forSource(Self);
 
     if Expression.readyToParse then
-      result := Expression.parseUntil(RULE_END_EXPRESSION);
+      result := Expression.parse;
 
     Self.resyncTo(RULE_END_EXPRESSION);
 
@@ -298,10 +310,10 @@ begin
   { Parse the expression, the value of which will be assigned to the named
     option
   }
-  Expression := ALinearCCompoundExpression.forSource(Self);
+  Expression := ALinearCExpression.forSource(Self);
 
   if Expression.readyToParse then
-    result := Expression.parseUntil(RULE_END_EXPRESSION);
+    result := Expression.parse;
 
   Self.resyncTo(RULE_END_EXPRESSION);
 
@@ -364,7 +376,7 @@ begin
 
   else
     if ATokenFromSource(CurrentToken).isPartOfAny([RULE_DELIMIT_STRING,
-      RULE_BEGIN_PATH]) <> -1 then
+      RULE_BEGIN_PATH, RULE_BEGIN_EXPRESSION]) <> -1 then
         Statement := ALinearCRestArgument.forSource(Self)
 
     else
