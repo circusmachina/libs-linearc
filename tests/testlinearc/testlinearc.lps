@@ -624,10 +624,9 @@
       </Unit84>
       <Unit85>
         <Filename Value="../../src/linearcstatements.inc"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="217"/>
+        <TopLine Value="272"/>
         <CursorPos X="79" Y="306"/>
         <UsageCount Value="18"/>
         <Loaded Value="True"/>
@@ -641,10 +640,11 @@
       </Unit86>
       <Unit87>
         <Filename Value="../../src/linearcexpressions.inc"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="935"/>
-        <CursorPos X="63" Y="949"/>
+        <TopLine Value="119"/>
+        <CursorPos X="43" Y="126"/>
         <UsageCount Value="18"/>
         <Loaded Value="True"/>
       </Unit87>

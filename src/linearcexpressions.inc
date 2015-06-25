@@ -123,7 +123,7 @@ type ALinearCIdentifierExpression = class(ALinearCExpression)
     { Parse the expression.
 
       This method uses the literal text of the current token to look up the
-      named option in @link(ALinearCExpression.Options Self.Options).  The value
+      named option in @link(ALinearCParser.Options Self.Options).  The value
       of the option is stored as the value of the expression.
 
       If the token text specifies an option that is not known, then it is
